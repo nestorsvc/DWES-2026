@@ -15,6 +15,8 @@
     contadora();
     contadora();
     contadora();
+    contadora();
+    contadora();
     ?>
 </body>
 </html>
