@@ -9,15 +9,18 @@
 
 <body>
     <?php
-    $numeros = [1, 9, 3, 8, 5, 7];
-    $resultado = '';
-    echo "<h1>Con for</h1>";
-    for ($i = 0; $i < count($numeros); $i++) {
-        echo $numeros[$i] * 2 . "<br>";
+    $productos = [
+        "Manzana" => 5,
+        "Plátano" => 3,
+        "Naranja" => 4,
+        "Kiwi" => 6
+    ];
+
+    $txt = '';
+    for ($i = 0; $i < count($productos); $i++){
+        $txt = "<h1>Lista de la compra<br>".$productos[$i]."</h1>";
     }
-    foreach ($numeros as $numero) {
-        echo $numero * 2 . "<br>";
-    }
+    echo $txt;
     ?>
 </body>
 
