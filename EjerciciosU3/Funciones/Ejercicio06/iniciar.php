@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 05</title>
+    <title>Ejercicio 06</title>
 </head>
 <body>
-    <?php 
-    require_once 'FuncionReemplazar.php';
-    $funcion = reemplazar('hola','adios', 'hola que tal');
-    echo $funcion;
+    <?php
+        require_once 'FuncionMayusMin.php';
+        $funcion = mayusMinus('ASDASDS');
+        echo $funcion;
     ?>
 </body>
 </html>
