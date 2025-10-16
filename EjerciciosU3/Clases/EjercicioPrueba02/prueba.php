@@ -11,11 +11,20 @@
     require_once 'Alumno.php';
     require_once 'Profesor.php';
 
-    $persona = new Persona("Paco",45);
-    $alumno = new Alumno("Saul",32,'Lengua');
-    $profesor = new Profesor("Reve",21,"2B");
+    $persona = new Persona("Persona",45);
+    $alumno = new Alumno("Alumnos",32,'Lengua');
+    $profesor = new Profesor("Profesor",21,"2B");
 
+    if($alumno instanceof Persona){
+        echo "El objeto $alumno pertenece al objeto Persona";
+    } else{
+        echo "No pertenece";
+    }
+    echo "<br>";
+    echo "Clase del objeto persona". get_class($alumno);
     echo $profesor->__toString();
+    echo "<br>";
+    echo get_declared_classes();
     echo "<br>";
     echo $alumno->__toString();
 
