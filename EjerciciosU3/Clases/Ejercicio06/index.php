@@ -43,7 +43,7 @@
             <p><?php echo $medico . "<br>" ?></p>
         <?php endif; ?>
     <?php endforeach; ?>
-
+            
 </body>
 
 </html>
