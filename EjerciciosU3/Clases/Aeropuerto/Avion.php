@@ -12,8 +12,9 @@ class Avion extends ElementoVolador{
     public function __construct(string $nombre, int $numAlas, int $numMotores,string $companiaAerea, string $fechaAlta, float $altitudMaxima){
         parent::__construct($nombre, $numAlas, $numMotores);
         $this->companiaAerea = $companiaAerea;
-        $fecha = new DateTime($fechaAlta);
-        $this->fechaAlta = $fecha->format("d-m-y");
+        // $fecha = new DateTime($fechaAlta);
+        // $this->fechaAlta = $fecha->format("d-m-y");
+        $this->fechaAlta = $fechaAlta;
         $this->altitudMaxima = $altitudMaxima;
     }
 
@@ -44,9 +45,7 @@ class Avion extends ElementoVolador{
     }
 
     public function mostrarInformacion(){
-        return "Nombre Compañia:" .$this->getCompania() . "Fecha Alta: " . $this->getFechaAlta() . "Altitud Maxima" . $this->getAltitudMaxima();
+        return "Nombre Compañia:" .$this->getCompania() . " Fecha Alta: " . $this->getFechaAlta() . " Altitud Maxima:" . $this->getAltitudMaxima() . "<br>";
     }
 }
 
-$avion = new Avion("paco",2,4,"Flying","3-11-2020",1500);
-echo $avion->mostrarInformacion();

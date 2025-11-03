@@ -38,8 +38,6 @@ class Helicoptero extends ElementoVolador
     }
 
     public function mostrarInformacion() {
-        return "Propietario: " .$this->getPropietario() . "Numero de rotores: " .$this->getnRotor();
+        return "Propietario: " .$this->getPropietario() . " Numero de rotores: " .$this->getnRotor();
     }
 }
-$h = new Helicoptero("helicoptero",5,1,"mario",2);
-echo $h->volar(100);
