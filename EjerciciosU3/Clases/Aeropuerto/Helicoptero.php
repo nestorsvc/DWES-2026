@@ -24,20 +24,23 @@ class Helicoptero extends ElementoVolador
     public function volar(float $altitud)
     {
         $resultado = '';
-        $altitudMax = 100 * $this->getnRotor();
-        if ($altitud < $altitudMax) {
-            while ($this->getAltitud() < $altitud) {
-                $altitudEntero = $this->getAltitud();
-                $this->setAltitud($altitudEntero + 100);
-                $resultado .= 'Altitud incrementada (+20m) altitud actual: ' . $this->getAltitud() . '<br>';
-            }
-            return $resultado;
+        $altitudMax = 100 * $this->nRotor;
+        if ($altitud > $altitudMax) {
+            return "Altitud demasiada alta para este helicóptero<br>";
         }
-        $resultado = "Falta de altitud, o sobrepaso de la altitud maxima del avion";
-        return $resultado;
+
+        while ($this->getAltitud() < $altitud) {
+            $this->setAltitud($this->getAltitud() + 20);
+            $resultado .= 'Altitud incrementada (+20m) altitud actual: ' . $this->getAltitud() . '<br>';
+        }
+        return $resultado . "Altitud objetivo alcanzada<br>";
     }
 
-    public function mostrarInformacion() {
-        return "Propietario: " .$this->getPropietario() . " Numero de rotores: " .$this->getnRotor();
+   public function mostrarInformacion(){
+        return "Helicóptero → Nombre: ".$this->getNombre() .
+               ", Propietario: " . $this->propietario .
+               ", Nº Rotores: " . $this->nRotor .
+               ", Altitud actual: " . $this->getAltitud() . " m" .
+               ", Velocidad: " . $this->getVelocidad() . " km/h<br>";
     }
 }

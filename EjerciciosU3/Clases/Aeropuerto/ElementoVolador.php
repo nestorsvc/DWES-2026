@@ -56,14 +56,11 @@ abstract class ElementoVolador implements Volador
    
 
     public function volando (){
-        if ($this->getAltitud() > 0){
-            return true;
-        }
-        return false;
+        return $this->altitud > 0;
     }
     public function acelerar(int $incremento){
-        $velocidad = $this->getVelocidad();
-        return $velocidad+=$incremento;
+        $this->velocidad+=$incremento;
+        return $this->velocidad;
     }
 
     abstract public function volar (float $altitud);

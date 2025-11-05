@@ -1,51 +1,60 @@
 <?php
 
 use LDAP\Result;
+
 require_once "ElementoVolador.php";
-class Avion extends ElementoVolador{
+class Avion extends ElementoVolador
+{
 
     private string $companiaAerea;
 
     private string $fechaAlta;
     private float $altitudMaxima;
 
-    public function __construct(string $nombre, int $numAlas, int $numMotores,string $companiaAerea, string $fechaAlta, float $altitudMaxima){
+    public function __construct(string $nombre, int $numAlas, int $numMotores, string $companiaAerea, string $fechaAlta, float $altitudMaxima)
+    {
         parent::__construct($nombre, $numAlas, $numMotores);
         $this->companiaAerea = $companiaAerea;
-        // $fecha = new DateTime($fechaAlta);
-        // $this->fechaAlta = $fecha->format("d-m-y");
         $this->fechaAlta = $fechaAlta;
         $this->altitudMaxima = $altitudMaxima;
     }
 
-    public function getCompania(){
+    public function getCompania()
+    {
         return $this->companiaAerea;
     }
-    public function getFechaAlta(){
+    public function getFechaAlta()
+    {
         return $this->fechaAlta;
     }
-    public function getAltitudMaxima(){
+    public function getAltitudMaxima()
+    {
         return $this->altitudMaxima;
     }
-    public function volar(float $altitud){
+    public function volar(float $altitud)
+    {
         $resultado = '';
-        if ($this->volando() !== false && $altitud < $this->getAltitudMaxima()){
-            if($this->getVelocidad() > 150){
-                while($this->getAltitud() < $altitud){
-                    $altitudEntero = $this->getAltitud();
-                    $this->setAltitud($altitudEntero + 100);
-                    $resultado += 'Altitud incrementada (+100m) altitud actual: ' . $this->getAltitud().'<br>';
-                }
-                $resultado = "Altitud objetivo alcanzada";
-            }
-            $resultado = "La velocidad debe ser superior a 150km/h";
+        if ($altitud < 0 || $altitud > $this->altitudMaxima) {
+            return "Altitud incorrecta<br>";
         }
-        $resultado = "Falta de altitud, o sobrepaso de la altitud maxima del avion";
-        return $resultado;
+        if ($this->getVelocidad() < 150) {
+            return "La velocidad debe ser superior a 150 km/h<br>";
+        }
+
+        while ($this->getAltitud() < $altitud) {
+            $this->setAltitud($this->getAltitud() + 100);
+            $resultado .= 'Altitud incrementada (+100m) altitud actual: ' . $this->getAltitud() . '<br>';
+        }
+         return $resultado . "Altitud objetivo alcanzada<br>";
+
     }
 
-    public function mostrarInformacion(){
-        return "Nombre Compañia:" .$this->getCompania() . " Fecha Alta: " . $this->getFechaAlta() . " Altitud Maxima:" . $this->getAltitudMaxima() . "<br>";
+    public function mostrarInformacion()
+    {
+        return "Avión → Nombre: " . $this->getNombre() .
+            ", Compañía: " . $this->getCompania() .
+            ", Fecha Alta: " . $this->getFechaAlta() .
+            ", Altitud actual: " . $this->getAltitud() . " m" .
+            ", Velocidad: " . $this->getVelocidad() . " km/h<br>";
     }
 }
-

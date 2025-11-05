@@ -44,14 +44,13 @@ class Aeropuerto{
     }
 
     public function despegar($nombre, $altitud, $velocidad){
-        foreach ($this->elementosVoladores as $elemento){
-            if($elemento->getNombre() == $nombre){
+         foreach ($this->elementosVoladores as $elemento){
+            if($elemento->getNombre() === $nombre){
                 $elemento->acelerar($velocidad);
-                $elemento->volar($altitud);
-                return $elemento->mostrarInformacion();
+                return $elemento->volar($altitud);
             }
         }
-        return false;
+        return null;
     }
 
 }
