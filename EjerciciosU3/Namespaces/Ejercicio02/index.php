@@ -17,4 +17,3 @@ $tipo = TipoDocumento::from($cadena);
 $documento03 = new Documento("Revista de Enums",$tipo);
 echo $documento03->obtenerInfoDetallada();
 
-de
