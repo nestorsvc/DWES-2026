@@ -50,7 +50,7 @@
             }
         } else {
             $conversion = ($cantidad / $monedaTipoCambio[$origen]) * $monedaTipoCambio[$destino];
-            array_push($resultados, "Cantidad: $cantidad", "Origen: $monedaDescripcion[$origen]", "Destino: $monedaDescripcion[$destino]", "Resultado:" . number_format($conversion, 2));
+            array_push($resultados, "Cantidad: $cantidad", "Origen: $monedaDescripcion[$origen]", "Destino: $monedaDescripcion[$destino]", "Resultado: " . number_format($conversion, 2));
             foreach ($resultados as $resultado) {
                 echo "<pre>$resultado</pre>";
             }

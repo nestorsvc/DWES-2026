@@ -11,9 +11,9 @@
 <body class="container">
     <h1>Buscador de peliculas por titulo</h1>
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
-        <label for="titulo">Introduce el titulo de la pelicula</label>
-        <input type="text" name="titulo" placeholder="Ejemplo: El Padrino">
-        <button type="submit" id="btnBuscar" >Buscar</button>
+        <label for="busqueda">Introduce el titulo de la pelicula</label>
+        <input type="text" name="busqueda" placeholder="Ejemplo: El Padrino">
+        <button type="submit" id="btnBuscar">Buscar</button>
     </form>
     <p>Introduce un titulo (o parte de él) para buscar</p>
 
@@ -61,7 +61,28 @@
             "sinopsis" => "Un niño descubre que es un mago y asiste a la escuela Hogwarts, donde comienzan sus aventuras."
         ]
     ];
+
+    if (isset($_POST['busqueda'])) {
+        $busqueda = $_POST['busqueda'];
+
+        $titulosPeliculas = array_keys($peliculas);
+        $titulosEncontrados = array_filter($titulosPeliculas, function ($titulo) use ($busqueda) {
+            if (str_contains(strtolower($titulo), strtolower($busqueda))) {
+                return $titulo;
+            }
+        });
+
+        foreach ($titulosEncontrados as $titulo) {
+           echo "<section style='background-color: #f0f0f0; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;'>
+        <p><b><i>$titulo</i></b> (" . $peliculas[$titulo]["anio"] . ")</p>
+        <p>" . $peliculas[$titulo]["sinopsis"] . "</p>
+      </section>";
+
+        }
+        echo count($titulosEncontrados) . " resultados para la búsqueda '$busqueda'.";
+    }
     ?>
+    <a href="peliculas.php">Limpiar</a>
 </body>
 
 </html>
