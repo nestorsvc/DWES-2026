@@ -7,64 +7,73 @@
     <title>Peliculas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
 </head>
-
+<?php
+ $busqueda = $_POST['busqueda'] ?? '';
+?>
 <body class="container">
     <h1>Buscador de peliculas por titulo</h1>
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
         <label for="busqueda">Introduce el titulo de la pelicula</label>
-        <input type="text" name="busqueda" placeholder="Ejemplo: El Padrino">
+        <input type="text" name="busqueda" value="<?= htmlspecialchars($busqueda) ?>" placeholder="Ejemplo: La lengua de las mariposas">
         <button type="submit" id="btnBuscar">Buscar</button>
     </form>
     <p>Introduce un titulo (o parte de él) para buscar</p>
 
-
     <?php
     $peliculas = [
-        "El Padrino" => [
-            "anio" => 1972,
-            "sinopsis" => "La historia de la familia Corleone y su lucha por mantener el poder en el mundo del crimen."
-        ],
-        "Forrest Gump" => [
-            "anio" => 1994,
-            "sinopsis" => "Un hombre con un coeficiente intelectual bajo presencia y participa en algunos de los eventos más importantes de la historia de EE. UU."
-        ],
-        "Inception" => [
-            "anio" => 2010,
-            "sinopsis" => "Un ladrón especializado en robar secretos del subconsciente recibe el desafío de implantar una idea en la mente de alguien."
-        ],
-        "Titanic" => [
-            "anio" => 1997,
-            "sinopsis" => "Una historia de amor entre Jack y Rose a bordo del fatídico barco Titanic."
-        ],
-        "El Señor de los Anillos: La Comunidad del Anillo" => [
-            "anio" => 2001,
-            "sinopsis" => "Un joven hobbit emprende un peligroso viaje para destruir un anillo que podría destruir la Tierra Media."
-        ],
-        "Matrix" => [
-            "anio" => 1999,
-            "sinopsis" => "Un programador descubre que la realidad es una simulación controlada por máquinas y se une a la resistencia."
-        ],
-        "Gladiador" => [
-            "anio" => 2000,
-            "sinopsis" => "Un general romano es traicionado y esclavizado, buscando venganza y justicia en la arena del Coliseo."
-        ],
-        "Jurassic Park" => [
-            "anio" => 1993,
-            "sinopsis" => "Un parque temático con dinosaurios clonados se convierte en un peligro mortal cuando los animales escapan."
-        ],
-        "La La Land" => [
-            "anio" => 2016,
-            "sinopsis" => "Una historia de amor entre una actriz y un músico en busca de sus sueños en Los Ángeles."
-        ],
-        "Harry Potter y la Piedra Filosofal" => [
-            "anio" => 2001,
-            "sinopsis" => "Un niño descubre que es un mago y asiste a la escuela Hogwarts, donde comienzan sus aventuras."
-        ]
-    ];
+    "El espíritu de la colmena" => [
+        "año" => 1973, // año de estreno
+        "sinopsis" => "Una niña en la posguerra española queda fascinada por la película 'Frankenstein' y vive entre realidad y fantasía." // breve descripción
+    ],
+    "Volver" => [
+        "año" => 2006, // año de estreno
+        "sinopsis" => "Drama de Pedro Almodóvar sobre la familia, los secretos y la supervivencia de varias mujeres en La Mancha." // descripción
+    ],
+    "Tristana" => [
+        "año" => 1970,
+        "sinopsis" => "Relación compleja entre una joven huérfana y su tutor; retrato de poder y dependencia."
+    ],
+    "La vaquilla" => [
+        "año" => 1985,
+        "sinopsis" => "Comedia satírica sobre la Guerra Civil española: un grupo intenta robar una vaca utilizada en una fiesta franquista."
+    ],
+    "Los otros" => [
+        "año" => 2001,
+        "sinopsis" => "Thriller gótico sobre una mujer y sus hijos fotosensibles que viven en una mansión aislada con secretos inquietantes."
+    ],
+    "El laberinto del fauno" => [
+        "año" => 2006,
+        "sinopsis" => "Fábula oscura ambientada en la posguerra: una niña encuentra un mundo fantástico mientras su madre sufre con la brutalidad del régimen."
+    ],
+    "Mar adentro" => [
+        "año" => 2004,
+        "sinopsis" => "Historia real de Ramón Sampedro, un hombre tetrapléjico que luchó por su derecho a morir dignamente."
+    ],
+    "Ocho apellidos vascos" => [
+        "año" => 2014,
+        "sinopsis" => "Comedia romántica sobre los choques culturales entre un sevillano y una joven vasca."
+    ],
+    "La lengua de las mariposas" => [
+        "año" => 1999,
+        "sinopsis" => "Relato tierno y amargo sobre la amistad entre un niño y su maestro en la víspera de la Guerra Civil."
+    ],
+    "Tesis" => [
+        "año" => 1996,
+        "sinopsis" => "Suspense universitario sobre una estudiante que investiga la morbosa fascinación por las imágenes violentas."
+    ],
+    "Celda 211" => [
+        "año" => 2009,
+        "sinopsis" => "Un guardia de prisiones se ve atrapado en un motín y debe hacerse pasar por reo para sobrevivir."
+    ],
+    "La piel que habito" => [
+        "año" => 2011,
+        "sinopsis" => "Thriller psicológico de Pedro Almodóvar sobre venganza y ética científica."
+    ],
+];
 
-    if (isset($_POST['busqueda'])) {
-        $busqueda = $_POST['busqueda'];
+       
 
+    if($busqueda !== ''){
         $titulosPeliculas = array_keys($peliculas);
         $titulosEncontrados = array_filter($titulosPeliculas, function ($titulo) use ($busqueda) {
             if (str_contains(strtolower($titulo), strtolower($busqueda))) {
@@ -73,16 +82,14 @@
         });
 
         foreach ($titulosEncontrados as $titulo) {
-           echo "<section style='background-color: #f0f0f0; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;'>
-        <p><b><i>$titulo</i></b> (" . $peliculas[$titulo]["anio"] . ")</p>
+            echo "<section style='background-color: #f0f0f0; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;'>
+        <p><b><i>$titulo</i></b> (" . $peliculas[$titulo]["año"] . ")</p>
         <p>" . $peliculas[$titulo]["sinopsis"] . "</p>
       </section>";
-
         }
         echo count($titulosEncontrados) . " resultados para la búsqueda '$busqueda'.";
     }
     ?>
     <a href="peliculas.php">Limpiar</a>
 </body>
-
 </html>

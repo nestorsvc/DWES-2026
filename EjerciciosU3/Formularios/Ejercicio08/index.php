@@ -12,8 +12,8 @@
     <h1>Conversor de monedas</h1>
     <hr>
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <label for="cantidad">Cantdiad</label>
-        <input type="number" name="cantidad">
+        <label for="cantidad">Cantidad</label>
+        <input type="number" name="cantidad" value="<?php htmlspecialchars($cantidad)?>">
         <label for="origen">Origen</label>
         <select name="origen">
             <option value="EUR">Euros</option>
@@ -29,8 +29,19 @@
         <button type="submit" id="btnEnviar">Convetir</button>
     </form>
     <?php
-    $monedaDescripcion = ["EUR" => "Euro - Moneda oficial en Europa", "USD" => "Dolar - Moneda de los EEUU", "RUB" => "Rublo - Moneda oficial de Rusia"];
-    $monedaTipoCambio = ["EUR" => 1.00, "USD" => 0.86, "RUB" => 90.91];
+
+    $monedaDescripcion = [
+        "EUR" => "Euro - Moneda oficial en Europa",
+        "USD" => "Dolar - Moneda de los EEUU",  
+        "RUB" => "Rublo - Moneda oficial de Rusia"
+    ];
+
+    $monedaTipoCambio = [
+        "EUR" => 1.00, 
+        "USD" => 1.09, // 1 EUR = 0.86 $ 
+        "RUB" => 88.0 // 1 EUR = 90.91 RUB
+    ];
+
     $resultados = [];
     $errores = [];
 
@@ -54,7 +65,7 @@
             foreach ($resultados as $resultado) {
                 echo "<pre>$resultado</pre>";
             }
-            echo "<h3>" . number_format($cantidad, 2) . " $origen son " . number_format($conversion, 2) . "$destino</h3>";
+            echo "<h3>" . number_format($cantidad, 2) . " $origen son " . number_format($conversion, 2) . " $destino</h3>";
         }
     }
 
