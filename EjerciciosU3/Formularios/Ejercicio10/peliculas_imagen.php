@@ -90,7 +90,7 @@ $busqueda = $_POST['busqueda'] ?? '';
 
     // Solamente entra aqui si el formulario ya ha sido enviado
     if ($busqueda !== '') {
-        // Saco los titulos los unicamente los titulos 
+        // Saco unicamente los titulos de las peliculas
         $titulosPeliculas = array_keys($peliculas);
 
         // Saco una array con los titulos que contienen la busqueda que he introducido
