@@ -45,7 +45,3 @@
     background: var(--pico-muted-background);
 }
 
-/* Hover suave estilo Pico */
-.fila:hover {
-    background: var(--pico-hover-background);
-}
