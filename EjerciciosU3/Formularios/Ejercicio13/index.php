@@ -1,158 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <title>Bandas</title>
 </head>
-<body>
+
+<body class="container">
     <?php
     $bandas = [
-    "U2" => [
-        "vocalista" => [
-            "nombre" => "Bono",
-            "imagen" => "imagenes/bono.jpg"
+        "U2" => [
+            "vocalista" => [
+                "nombre" => "Bono",
+                "imagen" => "imagenes/bono.jpg"
+            ],
+            "musicos" => [
+                [
+                    "nombre" => "The Edge",
+                    "instrumento" => "guitarra",
+                    "imagen" => "imagenes/the_edge.jpg"
+                ],
+                [
+                    "nombre" => "Adam Clayton",
+                    "instrumento" => "bajo",
+                    "imagen" => "imagenes/adam_clayton.jpg"
+                ],
+                [
+                    "nombre" => "Larry Mullen Jr.",
+                    "instrumento" => "batería",
+                    "imagen" => "imagenes/larry_mulen.jpg"
+                ]
+            ]
         ],
-        "musicos" => [
-            [
-                "nombre" => "The Edge",
-                "instrumento" => "guitarra",
-                "imagen" => "imagenes/the_edge.jpg"
+        "Led Zeppelin" => [
+            "vocalista" => [
+                "nombre" => "Robert Plant",
+                "imagen" => "imagenes/robert_plan.jpg"
             ],
-            [
-                "nombre" => "Adam Clayton",
-                "instrumento" => "bajo",
-                "imagen" => "imagenes/adam_clayton.jpg"
+            "musicos" => [
+                [
+                    "nombre" => "Jimmy Page",
+                    "instrumento" => "guitarra",
+                    "imagen" => "imagenes/jimmy_page.jpg"
+                ],
+                [
+                    "nombre" => "John Paul Jones",
+                    "instrumento" => "bajo",
+                    "imagen" => "imagenes/john_paul_jones.jpg"
+                ],
+                [
+                    "nombre" => "John Bonham",
+                    "instrumento" => "batería",
+                    "imagen" => "imagenes/john_bonham.jpg"
+                ]
+            ]
+        ],
+        "Metallica" => [
+            "vocalista" => [
+                "nombre" => "James Hetfield",
+                "imagen" => "imagenes/james_hetfield.jpg"
             ],
-            [
-                "nombre" => "Larry Mullen Jr.",
-                "instrumento" => "batería",
-                "imagen" => "imagenes/larry_mulen.jpg"
+            "musicos" => [
+                [
+                    "nombre" => "Lars Ulrich",
+                    "instrumento" => "batería",
+                    "imagen" => "imagenes/lars_ulrich.jpg"
+                ],
+                [
+                    "nombre" => "Kirk Hammett",
+                    "instrumento" => "guitarra solista",
+                    "imagen" => "imagenes/kirk_hammett.jpg"
+                ],
+                [
+                    "nombre" => "Robert Trujillo",
+                    "instrumento" => "bajo",
+                    "imagen" => "imagenes/robert_trujillo.jpg"
+                ]
+            ]
+        ],
+        "AC/DC" => [
+            "vocalista" => [
+                "nombre" => "Brian Johnson",
+                "imagen" => "imagenes/brian_johnson.jpg"
+            ],
+            "musicos" => [
+                [
+                    "nombre" => "Angus Young",
+                    "instrumento" => "guitarra solista",
+                    "imagen" => "imagenes/angus_young.jpg"
+                ],
+                [
+                    "nombre" => "Stevie Young",
+                    "instrumento" => "guitarra rítmica",
+                    "imagen" => "imagenes/stevie_young.jpg"
+                ],
+                [
+                    "nombre" => "Cliff Williams",
+                    "instrumento" => "bajo",
+                    "imagen" => "imagenes/cliff_williams.jpg"
+                ],
+                [
+                    "nombre" => "Phil Rudd",
+                    "instrumento" => "batería",
+                    "imagen" => "imagenes/phil_rudd.jpg"
+                ]
+            ]
+        ],
+        "Queen" => [
+            "vocalista" => [
+                "nombre" => "Freddie Mercury",
+                "imagen" => "imagenes/freddie_mercury.jpg"
+            ],
+            "musicos" => [
+                [
+                    "nombre" => "Brian May",
+                    "instrumento" => "guitarra",
+                    "imagen" => "imagenes/brian_may.jpg"
+                ],
+                [
+                    "nombre" => "John Deacon",
+                    "instrumento" => "bajo",
+                    "imagen" => "imagenes/john_deacon.jpg"
+                ],
+                [
+                    "nombre" => "Roger Taylor",
+                    "instrumento" => "batería",
+                    "imagen" => "imagenes/roger_taylor.jpg"
+                ]
+            ]
+        ],
+        "The Beatles" => [
+            "vocalista" => [
+                "nombre" => "John Lennon",
+                "imagen" => "imagenes/john_lennon.jpg"
+            ],
+            "musicos" => [
+                [
+                    "nombre" => "Paul McCartney",
+                    "instrumento" => "bajo",
+                    "imagen" => "imagenes/paul_mccartney.jpg"
+                ],
+                [
+                    "nombre" => "George Harrison",
+                    "instrumento" => "guitarra",
+                    "imagen" => "imagenes/george_harrison.jpg"
+                ],
+                [
+                    "nombre" => "Ringo Starr",
+                    "instrumento" => "batería",
+                    "imagen" => "imagenes/ringo_starr.jpg"
+                ]
             ]
         ]
-    ],
-    "Led Zeppelin" => [
-        "vocalista" => [
-            "nombre" => "Robert Plant",
-            "imagen" => "imagenes/robert_plan.jpg"
-        ],
-        "musicos" => [
-            [
-                "nombre" => "Jimmy Page",
-                "instrumento" => "guitarra",
-                "imagen" => "imagenes/jimmy_page.jpg"
-            ],
-            [
-                "nombre" => "John Paul Jones",
-                "instrumento" => "bajo",
-                "imagen" => "imagenes/john_paul_jones.jpg"
-            ],
-            [
-                "nombre" => "John Bonham",
-                "instrumento" => "batería",
-                "imagen" => "imagenes/john_bonham.jpg"
-            ]
-        ]
-    ],
-    "Metallica" => [
-        "vocalista" => [
-            "nombre" => "James Hetfield",
-            "imagen" => "imagenes/james_hetfield.jpg"
-        ],
-        "musicos" => [
-            [
-                "nombre" => "Lars Ulrich",
-                "instrumento" => "batería",
-                "imagen" => "imagenes/lars_ulrich.jpg"
-            ],
-            [
-                "nombre" => "Kirk Hammett",
-                "instrumento" => "guitarra solista",
-                "imagen" => "imagenes/kirk_hammett.jpg"
-            ],
-            [
-                "nombre" => "Robert Trujillo",
-                "instrumento" => "bajo",
-                "imagen" => "imagenes/robert_trujillo.jpg"
-            ]
-        ]
-    ],
-    "AC/DC" => [
-        "vocalista" => [
-            "nombre" => "Brian Johnson",
-            "imagen" => "imagenes/brian_johnson.jpg"
-        ],
-        "musicos" => [
-            [
-                "nombre" => "Angus Young",
-                "instrumento" => "guitarra solista",
-                "imagen" => "imagenes/angus_young.jpg"
-            ],
-            [
-                "nombre" => "Stevie Young",
-                "instrumento" => "guitarra rítmica",
-                "imagen" => "imagenes/stevie_young.jpg"
-            ],
-            [
-                "nombre" => "Cliff Williams",
-                "instrumento" => "bajo",
-                "imagen" => "imagenes/cliff_williams.jpg"
-            ],
-            [
-                "nombre" => "Phil Rudd",
-                "instrumento" => "batería",
-                "imagen" => "imagenes/phil_rudd.jpg"
-            ]
-        ]
-    ],
-    "Queen" => [
-        "vocalista" => [
-            "nombre" => "Freddie Mercury",
-            "imagen" => "imagenes/freddie_mercury.jpg"
-        ],
-        "musicos" => [
-            [
-                "nombre" => "Brian May",
-                "instrumento" => "guitarra",
-                "imagen" => "imagenes/brian_may.jpg"
-            ],
-            [
-                "nombre" => "John Deacon",
-                "instrumento" => "bajo",
-                "imagen" => "imagenes/john_deacon.jpg"
-            ],
-            [
-                "nombre" => "Roger Taylor",
-                "instrumento" => "batería",
-                "imagen" => "imagenes/roger_taylor.jpg"
-            ]
-        ]
-    ],
-    "The Beatles" => [
-        "vocalista" => [
-            "nombre" => "John Lennon",
-            "imagen" => "imagenes/john_lennon.jpg"
-        ],
-        "musicos" => [
-            [
-                "nombre" => "Paul McCartney",
-                "instrumento" => "bajo",
-                "imagen" => "imagenes/paul_mccartney.jpg"
-            ],
-            [
-                "nombre" => "George Harrison",
-                "instrumento" => "guitarra",
-                "imagen" => "imagenes/george_harrison.jpg"
-            ],
-            [
-                "nombre" => "Ringo Starr",
-                "instrumento" => "batería",
-                "imagen" => "imagenes/ringo_starr.jpg"
-            ]
-        ]
-    ]
-];
+    ];
+
+    $nombresBandas = array_keys($bandas);
+    $bandaSeleccionada = $_POST["bandaSeleccionada"] ?? "";
 
     ?>
+
+    <a href="index.php">
+        <h1>Bandas legendarias - Componentes</h1>
+    </a>
+    <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
+        <label for="banda">Selecciona banda</label>
+        <select name="bandaSeleccionada">
+            <option disabled <?= $bandaSeleccionada === "" ? 'selected' : '' ?>>Mostrar todas</option>
+            <?php foreach ($nombresBandas as $nombre): ?>
+                <option value="<?= htmlspecialchars($nombre) ?>" <?= $nombre === $bandaSeleccionada ? 'selected' : '' ?>> <?= htmlspecialchars($nombre) ?> </option>
+            <?php endforeach ?>
+        </select>
+        <h1>Mostrar</h1>
+        <label>
+            <input type="radio" name="tipo" value="vocalistas">
+            Vocalistas
+        </label>
+
+        <label>
+            <input type="radio" name="tipo" value="musicos">
+            Musicos
+        </label>
+        <button type="submit">Mostrar</button>
+    </form>
+
 </body>
+
 </html>
