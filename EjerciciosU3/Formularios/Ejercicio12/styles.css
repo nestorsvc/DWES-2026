@@ -1,0 +1,51 @@
+/* Contenedor general */
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    background: var(--pico-background-color);
+    color: var(--pico-color);
+    border-radius: .5rem;
+    overflow: hidden;
+    border: 1px solid var(--pico-muted-border-color);
+}
+
+/* Filas */
+.fila {
+    display: flex;
+    border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+/* Última fila sin borde */
+.fila:last-child {
+    border-bottom: none;
+}
+
+/* Celdas */
+.celda {
+    flex: 1;
+    padding: .75rem 1rem;
+}
+
+/* Primera columna (#) más estrecha */
+.celda:first-child {
+    flex: 0 0 60px;
+    text-align: center;
+}
+
+/* Encabezado estilo Pico */
+.encabezado {
+    background: var(--pico-primary-background);
+    color: var(--pico-primary-inverse);
+    font-weight: bold;
+}
+
+/* Filas alternas tipo “striped” */
+.fila:nth-child(even) {
+    background: var(--pico-muted-background);
+}
+
+/* Hover suave estilo Pico */
+.fila:hover {
+    background: var(--pico-hover-background);
+}
