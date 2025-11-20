@@ -158,7 +158,7 @@
 
     $nombresBandas = array_keys($bandas);
     $bandaSeleccionada = $_POST["bandaSeleccionada"] ?? "";
-
+    $tipo = $_POST["tipo"] ?? "";
     ?>
 
     <a href="index.php">
@@ -167,23 +167,65 @@
     <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
         <label for="banda">Selecciona banda</label>
         <select name="bandaSeleccionada">
-            <option disabled <?= $bandaSeleccionada === "" ? 'selected' : '' ?>>Mostrar todas</option>
+            <option value="mostrar-todas" <?= $bandaSeleccionada === "" ? 'selected' : '' ?>>Mostrar todas</option>
             <?php foreach ($nombresBandas as $nombre): ?>
                 <option value="<?= htmlspecialchars($nombre) ?>" <?= $nombre === $bandaSeleccionada ? 'selected' : '' ?>> <?= htmlspecialchars($nombre) ?> </option>
             <?php endforeach ?>
         </select>
         <h1>Mostrar</h1>
         <label>
-            <input type="radio" name="tipo" value="vocalistas">
+            <input type="radio" name="tipo" value="vocalistas" <?= $tipo == "vocalistas" ? 'checked' : "" ?>>
             Vocalistas
         </label>
 
         <label>
-            <input type="radio" name="tipo" value="musicos">
+            <input type="radio" name="tipo" value="musicos" <?= $tipo == "musicos" ? 'checked' : "" ?>>
             Musicos
         </label>
         <button type="submit">Mostrar</button>
     </form>
+   <?php if ($bandaSeleccionada !== ""): ?>
+
+    <?php
+    // Determinar qué bandas mostrar
+    $bandasAMostrar = [];
+
+    if ($bandaSeleccionada === "mostrar-todas") {
+        $bandasAMostrar = $nombresBandas;   // todas las bandas
+    } else {
+        $bandasAMostrar = [$bandaSeleccionada];  // solo una
+    }
+    ?>
+
+    <?php foreach ($bandasAMostrar as $nombreBanda): ?>
+
+        <?php if ($tipo === "vocalistas"): ?>
+
+            <!-- Mostrar vocalista -->
+            <section style='background-color: #f0f0f0; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;'>
+                <h2><?= $nombreBanda ?></h2>
+                <p><b><?= $bandas[$nombreBanda]["vocalista"]["nombre"] ?></b></p>
+                <img src="<?= $bandas[$nombreBanda]["vocalista"]["imagen"] ?>">
+            </section>
+
+        <?php elseif ($tipo === "musicos"): ?>
+
+            <!-- Mostrar músicos -->
+            <h2><?= $nombreBanda ?></h2>
+            <?php foreach ($bandas[$nombreBanda]["musicos"] as $musico): ?>
+                <section style='background-color: #f0f0f0; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;'>
+                    <p><b><?= $musico["nombre"] ?></b></p>
+                    <p><i>(<?= $musico["instrumento"] ?>)</i></p>
+                    <img src="<?= $musico["imagen"] ?>">
+                </section>
+            <?php endforeach; ?>
+
+        <?php endif; ?>
+
+    <?php endforeach; ?>
+
+<?php endif; ?>
+
 
 </body>
 
