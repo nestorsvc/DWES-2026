@@ -5,26 +5,24 @@ namespace App\Classes;
 use App\Interfaces\InterfazPasswordGenerator;
 use Hackzilla\PasswordGenerator\Generator\ComputerPasswordGenerator;
 
+// El adaptador implementa la interfaz y su método generar. 
 class AdaptadorGeneradorPassword implements InterfazPasswordGenerator
 {
 
-    private $generador;
-
-    public function __construct()
+    // Únicamente aquí es donde se usa la librería de composer
+    public static function generar(PasswordGenerator $passwordGenerator):string
     {
-        $this->generador = new ComputerPasswordGenerator();
-    }
+        // Creamos una instancia de la clase ComputerPasswordGenerator
+        // LLamamos a los métodos estáticos de ComputerPasswordGenerator para pasarle los valores de la clase PasswordGenerator (los valores del formulario)
+        $generador = new ComputerPasswordGenerator();
 
-    public function generar(PasswordGenerator $passwordGenerator):string
-    {
-        // Configurar según opciones del formulario
-        $this->generador->setUppercase($passwordGenerator->getMayusculas());
-        $this->generador->setLowercase($passwordGenerator->getMinusculas());
-        $this->generador->setNumbers($passwordGenerator->getNumeros());
-        $this->generador->setSymbols($passwordGenerator->getSimbolos());
-        $this->generador->setLength($passwordGenerator->getLongitud());
+        $generador->setOptionValue(ComputerPasswordGenerator::OPTION_LOWER_CASE,$passwordGenerator->getMinusculas());
+        $generador->setOptionValue(ComputerPasswordGenerator::OPTION_UPPER_CASE,$passwordGenerator->getMayusculas());
+        $generador->setOptionValue(ComputerPasswordGenerator::OPTION_NUMBERS,$passwordGenerator->getNumeros());
+        $generador->setOptionValue(ComputerPasswordGenerator::OPTION_SYMBOLS,$passwordGenerator->getSimbolos());
+        $generador->setOptionValue(ComputerPasswordGenerator::OPTION_LENGTH,$passwordGenerator->getLongitud());
 
-        // Generar y devolver contraseña
-        return $this->generador->generatePassword();
+        // Generamos y devolvemos contraseña
+        return $generador->generatePassword();
     }
 }
