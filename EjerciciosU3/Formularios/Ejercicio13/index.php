@@ -219,7 +219,6 @@
                     <img src="<?= $musico["imagen"] ?>">
                 </section>
             <?php endforeach; ?>
-
         <?php endif; ?>
 
     <?php endforeach; ?>

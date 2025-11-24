@@ -7,22 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticInit29ee21d800d12ab931503f015659521e
 {
     public static $prefixLengthsPsr4 = array (
-        'H' =>
+        'H' => 
         array (
             'Hackzilla\\PasswordGenerator\\' => 28,
         ),
-        'A' =>
+        'A' => 
         array (
             'App\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Hackzilla\\PasswordGenerator\\' =>
+        'Hackzilla\\PasswordGenerator\\' => 
         array (
             0 => __DIR__ . '/..' . '/hackzilla/password-generator',
         ),
-        'App\\' =>
+        'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
