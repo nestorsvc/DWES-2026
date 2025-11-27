@@ -28,10 +28,10 @@
         <input type="number" id="longitud" name="longitud">
         <button type="submit">Generar</button>
     </form>
-    <form method="post" action="procesa.php">
+    <!-- <form method="post" action="procesa.php">
         <input type="hidden" name="contrasenias">
         <button type="submit">Mostrar Contraseñas Creadas</button>
-    </form>
+    </form> -->
 </body>
 
 </html>

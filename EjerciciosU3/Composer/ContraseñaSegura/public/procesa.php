@@ -49,13 +49,6 @@ $historial[] = $contrasenia
     <h1>Contraseña generada</h1>
     <!-- Usamos el la instacia para llamar al método y le pasamos la instancia con los valores recogidos -->
     <p><b><i><?= $contrasenia ?></i></b></p>
-    <?php if($contrasenia !== null): ?>
-        <h2>Historial de contraseñas creadas</h2>
-        <?php var_dump($historial)?>
-        <?php foreach ($historial as $con) :?>
-            <p><?= $con ?></p>
-            <?php endforeach ?>
-        <?php endif ?>
     <a href="index.php">
         <p>Volver</p>
     </a>
