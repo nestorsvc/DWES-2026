@@ -12,7 +12,7 @@ use App\Classes\ConexionBD;
 function mostrarEquipos()
 {
     $pdo = ConexionBD::getConnection();
-    
+
     // Usamos query directamente
     $stmt = $pdo->query("SELECT nombre, ciudad, conferencia, division FROM equipos");
     $equipos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -21,7 +21,7 @@ function mostrarEquipos()
 function mostrarJugadores()
 {
     $pdo = ConexionBD::getConnection();
-    
+
     // Usamos query directamente
     $stmt = $pdo->query("SELECT nombre FROM jugadores");
     $jugadores = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -39,12 +39,14 @@ function mostrarJugadoresPorEquipo(string $equipo)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function altaBajaJugador(string $nombre, string $procedencia, float $altura, $peso, string $posicion){
-    function sacarCodigoJugador(string $nombre){
+function altaBajaJugador(string $jugadorBaja, string $nombre, string $procedencia, float $altura, $peso, string $posicion, string $nombre_equipo)
+{
+    function sacarCodigoJugador(string $jugadorBaja)
+    {
         $pdo = ConexionBD::getConnection();
 
         $stmt = $pdo->prepare("SELECT codigo FROM jugadores WHERE nombre= ?");
-        $stmt->execute([$nombre]);
+        $stmt->execute([$jugadorBaja]);
 
         $id = $stmt->fetchColumn();
         $id = (int)$id;
@@ -52,11 +54,11 @@ function altaBajaJugador(string $nombre, string $procedencia, float $altura, $pe
     }
 
     $pdo = ConexionBD::getConnection();
-    
+
     try {
         $pdo->beginTransaction(); // iniciar transacción
 
-        $codigo = sacarCodigoJugador($nombre);
+        $codigo = sacarCodigoJugador($jugadorBaja);
 
         // Dar de baja al jugador
         $stmt = $pdo->prepare("DELETE FROM estadisticas WHERE jugador=?");
@@ -67,16 +69,14 @@ function altaBajaJugador(string $nombre, string $procedencia, float $altura, $pe
 
 
         // Dar de alta a un nuevo jugador
-        $stmt = $pdo->prepare("INSERT INTO jugadores (nombre, procedencia, altura, peso, posicion) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$nombre, $procedencia, $altura, $peso, $posicion]);
+        $stmt = $pdo->prepare("INSERT INTO jugadores (nombre, procedencia, altura, peso, posicion, nombre_equipo) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$nombre, $procedencia, $altura, $peso, $posicion, $nombre_equipo]);
 
         $pdo->commit(); // confirmar cambios
         return true;
-
-    } catch (Exception $e) {
-        $pdo->rollBack(); // deshacer todo si hay error
+    } catch (Exception $e) { 
+        $pdo->rollBack();
+        echo "Error: " . $e->getMessage();
         return false;
     }
-
 }
-

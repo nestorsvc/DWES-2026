@@ -1,7 +1,6 @@
 <?php
 
-use function App\Functions\mostrarEquipos;
-use function App\Functions\mostrarJugadoresPorEquipo;
+use function App\Functions\altaBajaJugador;
 
 require_once '../app/Functions/funcionesBD.php';
 
@@ -14,9 +13,46 @@ $procedencia = $_POST['procedencia'] ?? null;
 $altura = $_POST['altura'] ?? null;
 $peso = $_POST['peso'] ?? null;
 $posicion = $_POST['posicion'] ?? null;
+$equipoFiltro = $_POST['equipoFiltro'] ?? null;
 
 
+function validarNombre($nombre)
+{
+    // preg_match() devuelve 1 si encuentra coiniciencia o 0 si no
+    // con esta regex aseguramos que solo haya letras y acentos permitidos, espacios entre nombres y no permitimos numeros ni caracteres especiales
+    if (preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(?:\s[A-Za-zÁÉÍÓÚáéíóúÑñ]+)*$/', $nombre)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-$mensajes = [];
+function validarProcedencia($procedencia)
+{
+    if (preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(?:\s[A-Za-zÁÉÍÓÚáéíóúÑñ]+)*$/', $procedencia)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
+function validarPosicion($posicion)
+{
+    if (preg_match('/^(F|C|G)(-(?!\1)(F|C|G))?$/', $posicion)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
+if (validarNombre($nombre) && validarPosicion($posicion) && validarProcedencia($procedencia)) {
+    if (altaBajaJugador($jugadorBaja, $nombre, $procedencia, $altura, $peso, $posicion,$equipoFiltro)) {
+        echo "todo salio bien";
+    } else {
+        echo "algo fallo";
+    }
+} else {
+    echo "al carajo";
+}
+?>
+<a href="../public/index.php"><p>Volver</p></a>

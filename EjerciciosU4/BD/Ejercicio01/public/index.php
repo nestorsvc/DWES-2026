@@ -8,7 +8,7 @@ require_once '../app/Functions/funcionesBD.php';
 
 $equipoFiltro = $_POST['mostrarJugadores'] ?? "";
 
-$jugadorBaja = $_POST['jugadorBaja'];
+$jugadorBaja = $_POST['jugadorBaja'] ?? "";
 
 $jugadoresFiltrados = mostrarJugadoresPorEquipo($equipoFiltro);
 $equipos = mostrarEquipos();
@@ -63,55 +63,65 @@ $jugadores = mostrarJugadores();
     <?php endif ?>
 
     <?php if (isset($_POST['btnMostrarJugadoresPorEquipo'])): ?>
-        <hr>
-        <h3><?= ucfirst($equipoFiltro) ?></h3>
-        <div class="tabla">
-            <div class="fila cabecera">
-                <div class="celda">Nombre</div>
-                <div class="celda">Peso (Kg)</div>
-            </div>
-            <?php foreach ($jugadoresFiltrados as $jugador): ?>
-                <div class="fila">
-                    <div class="celda"><?= $jugador['nombre'] ?></div>
-                    <div class="celda"><?= $jugador['peso'] ?></div>
+        <?php if ($equipoFiltro === ""): ?>
+            <p style="color: red">Debes seleccionar un equipo primero</p>
+        <?php else : ?>
+            <hr>
+            <h3><?= ucfirst($equipoFiltro) ?></h3>
+            <div class="tabla">
+                <div class="fila cabecera">
+                    <div class="celda">Nombre</div>
+                    <div class="celda">Peso (Kg)</div>
                 </div>
-            <?php endforeach ?>
-        </div>
+                <?php foreach ($jugadoresFiltrados as $jugador): ?>
+                    <div class="fila">
+                        <div class="celda"><?= $jugador['nombre'] ?></div>
+                        <div class="celda"><?= $jugador['peso'] ?></div>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        <?php endif ?>
     <?php endif ?>
 
     <?php if (isset($_POST['btnMostrarFormularioAltaBaja'])): ?>
-        <hr>
-        <h3><?= ucfirst($equipoFiltro) ?></h3>
-        <h2>Gestion de jugadores</h1>
-        <form action="../app/procesa.php" method="post">
-                <h4>Jugador a dar de baja</h4>
-                <select name="jugadorBaja">
-                    <option disabled selected>Selecciona el jugador</option>
-                    <?php foreach ($jugadores as $jugador): ?>
-                        <option value="<?= htmlspecialchars($jugador['nombre']) ?>" <?= htmlspecialchars($jugador['nombre'] === $jugadorBaja ? 'selected' : '') ?>> <?= htmlspecialchars($jugador['nombre']) ?> ></option>
-                    <?php endforeach ?>
-                </select>
-                
-                <h4>Alta de nuevo jugador</h4>
-                <label for="nombre">Nombre</label>
-                <input type="text" name="nombre">
+        <?php if ($equipoFiltro === ""): ?>
+            <p style="color: red">Debes seleccionar un equipo primero</p>
+        <?php else : ?>
+            <hr>
+            <h3><?= ucfirst($equipoFiltro) ?></h3>
+            <h2>Gestion de jugadores</h1>
+                <form action="../app/procesa.php" method="post">
+                    <h4>Jugador a dar de baja</h4>
+                    <select name="jugadorBaja">
+                        <option disabled selected>Selecciona el jugador</option>
+                        <?php foreach ($jugadoresFiltrados as $jugador): ?>
+                            <option value="<?= htmlspecialchars($jugador['nombre']) ?>" <?= htmlspecialchars($jugador['nombre'] === $jugadorBaja ? 'selected' : '') ?>> <?= htmlspecialchars($jugador['nombre']) ?> </option>
+                        <?php endforeach ?>
+                    </select>
 
-                <label for="procedencia">Procedencia</label>
-                <input type="text" name="procedencia">
+                    <h4>Alta de nuevo jugador</h4>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" name="nombre">
 
-                <label for="altura">Altura (m)</label>
-                <input type="number" name="altura" step="0.01" min="0">
+                    <label for="procedencia">Procedencia</label>
+                    <input type="text" name="procedencia">
 
-                <label for="peso">Peso</label>
-                <input type="number" name="peso" step="0.01" min="0">
+                    <label for="altura">Altura (m)</label>
+                    <input type="number" name="altura" step="0.01" min="0">
 
-                <label for="posicion">Posicion</label>
-                <input type="text" name="posicion">
+                    <label for="peso">Peso</label>
+                    <input type="number" name="peso" step="0.01" min="0">
 
-                <button type="submit" name="btnAltaBaja">Confirmar baja y dar de alta</button>
+                    <label for="posicion">Posicion</label>
+                    <input type="text" name="posicion">
+
+                    <input type="hidden" name="equipoFiltro" value="<?= $equipoFiltro ?>">
+
+                    <button type="submit" name="btnAltaBaja">Confirmar baja y dar de alta</button>
 
 
-            </form>
+                </form>
+            <?php endif ?>
         <?php endif ?>
 
 </body>
