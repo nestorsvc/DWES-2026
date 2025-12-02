@@ -24,7 +24,6 @@ $jugadores = mostrarJugadores();
     <title>NBA</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <link rel="stylesheet" href="./styles/styles.css">
-
 </head>
 
 <body class="container">
@@ -64,7 +63,7 @@ $jugadores = mostrarJugadores();
 
     <?php if (isset($_POST['btnMostrarJugadoresPorEquipo'])): ?>
         <?php if ($equipoFiltro === ""): ?>
-            <p style="color: red">Debes seleccionar un equipo primero</p>
+            <p style="color: red"><i>Debes seleccionar un equipo primero</i></p>
         <?php else : ?>
             <hr>
             <h3><?= ucfirst($equipoFiltro) ?></h3>
@@ -85,7 +84,7 @@ $jugadores = mostrarJugadores();
 
     <?php if (isset($_POST['btnMostrarFormularioAltaBaja'])): ?>
         <?php if ($equipoFiltro === ""): ?>
-            <p style="color: red">Debes seleccionar un equipo primero</p>
+            <p style="color: red"><i>Debes seleccionar un equipo primero</i></p>
         <?php else : ?>
             <hr>
             <h3><?= ucfirst($equipoFiltro) ?></h3>
@@ -118,7 +117,6 @@ $jugadores = mostrarJugadores();
                     <input type="hidden" name="equipoFiltro" value="<?= $equipoFiltro ?>">
 
                     <button type="submit" name="btnAltaBaja">Confirmar baja y dar de alta</button>
-
 
                 </form>
             <?php endif ?>

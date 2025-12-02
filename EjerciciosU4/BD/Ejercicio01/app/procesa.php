@@ -1,3 +1,8 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+<h1>Gestion de altas y bajas</h1>
+<a href="../public/index.php">
+    <p>Volver</p>
+</a>
 <?php
 
 use function App\Functions\altaBajaJugador;
@@ -13,7 +18,11 @@ $procedencia = $_POST['procedencia'] ?? null;
 $altura = $_POST['altura'] ?? null;
 $peso = $_POST['peso'] ?? null;
 $posicion = $_POST['posicion'] ?? null;
+
+// Lo recogo con el input hidden
 $equipoFiltro = $_POST['equipoFiltro'] ?? null;
+
+$error = [];
 
 
 function validarNombre($nombre)
@@ -23,6 +32,7 @@ function validarNombre($nombre)
     if (preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(?:\s[A-Za-zÁÉÍÓÚáéíóúÑñ]+)*$/', $nombre)) {
         return true;
     } else {
+        $GLOBALS['error'][] =  'Nombre introducido no válido';
         return false;
     }
 }
@@ -32,6 +42,7 @@ function validarProcedencia($procedencia)
     if (preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(?:\s[A-Za-zÁÉÍÓÚáéíóúÑñ]+)*$/', $procedencia)) {
         return true;
     } else {
+        $GLOBALS['error'][] =  'Procedencia introducida no válida';
         return false;
     }
 }
@@ -41,18 +52,21 @@ function validarPosicion($posicion)
     if (preg_match('/^(F|C|G)(-(?!\1)(F|C|G))?$/', $posicion)) {
         return true;
     } else {
+        $GLOBALS['error'][] =  'Posición introducida no válida';
         return false;
     }
 }
 
-if (validarNombre($nombre) && validarPosicion($posicion) && validarProcedencia($procedencia)) {
-    if (altaBajaJugador($jugadorBaja, $nombre, $procedencia, $altura, $peso, $posicion,$equipoFiltro)) {
-        echo "todo salio bien";
-    } else {
-        echo "algo fallo";
+try {
+    if (validarNombre($nombre) && validarPosicion($posicion) && validarProcedencia($procedencia)) {
+        if (altaBajaJugador($jugadorBaja, $nombre, $procedencia, $altura, $peso, $posicion, $equipoFiltro)) {
+            echo "<p style='color : green'><i>Operación relaizada con exito</i></p>";
+        }
     }
-} else {
-    echo "al carajo";
+    foreach ($GLOBALS['error'] as $e) {
+        echo "<p style='color : red'><i>$e</i></p>";
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
 }
 ?>
-<a href="../public/index.php"><p>Volver</p></a>
