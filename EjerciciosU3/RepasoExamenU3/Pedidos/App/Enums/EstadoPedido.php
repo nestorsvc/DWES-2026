@@ -15,10 +15,10 @@ enum EstadoPedido{
 
         // Para asignarle un valor a cada case, con un match ($this) apuntamos al enum correspondiente
         return match($this){
-            EstadoPedido::Pendiente => "El pedido está pendiente de envío",
-            EstadoPedido::Cancelado => "El pedido ha sido cancelado",
-            EstadoPedido::Entregado => "El pedido ha sido entregado",
-            EstadoPedido::Enviado => "El pedido ha sido enviado"
+            self::Pendiente => "El pedido está pendiente de envío",
+            self::Cancelado => "El pedido ha sido cancelado",
+            self::Entregado => "El pedido ha sido entregado",
+            self::Enviado => "El pedido ha sido enviado"
         };
     }
 }
