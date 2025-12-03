@@ -22,9 +22,18 @@ $posicion = $_POST['posicion'] ?? null;
 // Lo recogo con el input hidden
 $equipoFiltro = $_POST['equipoFiltro'] ?? null;
 
+// Variable global para mostrar los errores
 $error = [];
 
+/**
+ * FUNCIONES PARA VALIDAR LOS DATOS DEL FORMULARIO
+ */
 
+/**
+ * Función para validar nombre
+ * @param mixed $nombre => campo nombre
+ * @return true o false según cumpla con la validación o no
+ */
 function validarNombre($nombre)
 {
     // preg_match() devuelve 1 si encuentra coiniciencia o 0 si no
@@ -37,6 +46,11 @@ function validarNombre($nombre)
     }
 }
 
+/**
+ * Función para validar procedencia
+ * @param mixed $procedencia => campo procedencia
+ * @return true o false según cumpla con la validación o no 
+ */
 function validarProcedencia($procedencia)
 {
     if (preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(?:\s[A-Za-zÁÉÍÓÚáéíóúÑñ]+)*$/', $procedencia)) {
@@ -46,7 +60,11 @@ function validarProcedencia($procedencia)
         return false;
     }
 }
-
+/**
+ * Función para validar posición
+ * @param mixed $posicion => campo posicion
+ * @return true o false según se cumpla la validación
+ */
 function validarPosicion($posicion)
 {
     if (preg_match('/^(F|C|G)(-(?!\1)(F|C|G))?$/', $posicion)) {
@@ -57,6 +75,9 @@ function validarPosicion($posicion)
     }
 }
 
+/**
+ * Try - Catch para manejar los posibles errores en la transacción de la función altaBajaJugador()
+ */
 try {
     if (validarNombre($nombre) && validarPosicion($posicion) && validarProcedencia($procedencia)) {
         if (altaBajaJugador($jugadorBaja, $nombre, $procedencia, $altura, $peso, $posicion, $equipoFiltro)) {
