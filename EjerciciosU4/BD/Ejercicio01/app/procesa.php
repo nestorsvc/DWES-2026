@@ -60,6 +60,7 @@ function validarProcedencia($procedencia)
         return false;
     }
 }
+
 /**
  * Función para validar posición
  * @param mixed $posicion => campo posicion

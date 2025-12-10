@@ -18,7 +18,7 @@
 .cabecera {
     font-weight: 600;
     background: var(--pico-primary-background, #f6f8fa);
-    color: var(--pico-primary-text, #333);
+    color: var(--pico-primary-text, #f6f8fa);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -34,4 +34,59 @@
 
 .celda:last-child {
     border-right: none;
+}
+
+.menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Aplica estilos tanto a botones como selects para igualarlos */
+.menu button,
+.menu select {
+  /* Obtener el mismo tamaño que usa PicoCSS por defecto: */
+  font: inherit;                          /* que usen la misma fuente */
+  line-height: normal;                    /* igual línea base */
+  padding: 0.5em 1em;                     /* valor típico del padding de los botones */
+  height: auto;                           /* deja que el contenido marque la altura */
+  min-height: 2.25rem; /* o el valor que uses en botones */ 
+  margin: 0 0.5em;                       /* márgenes similares */
+  display: inline-flex;                  /* para centrar contenido verticalmente */
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* Estructura principal del encabezado */
+.cabecera-titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centra el título */
+    position: relative; /* Permite posicionar el logo a la izquierda */
+    padding: 10px 0;
+    background-color: #0172AD;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave debajo */
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+
+/* Logo (balón a la izquierda) */
+.logo {
+    position: absolute;
+    left: 20px; /* Distancia desde el borde izquierdo */
+}
+
+.logo img {
+    height: 50px; /* Tamaño del balón */
+    width: auto;
+    cursor: pointer; /* Muestra la mano al pasar el ratón */
+}
+
+/* Título centrado */
+.titulo {
+    color: white;
+    margin: 0;
+    font-size: 2rem;
+    text-align: center;
 }

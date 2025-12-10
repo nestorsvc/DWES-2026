@@ -22,24 +22,30 @@ $jugadores = mostrarJugadores();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBA</title>
+    <link rel="icon" type="image/png" href="./img/baloncesto.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
 
 <body class="container">
-    <a href="./index.php">
-        <h1>Gestor NBA</h1>
-    </a>
+   <header class="cabecera-titulo">
+        <a href="./index.php" class="logo">
+            <img src="./img/baloncesto.png" alt="Baloncesto">
+        </a>
+        <h1 class="titulo">Gestor NBA</h1>
+    </header>
     <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
-        <button type="submit" name="btnMostrarEquipos">Mostrar Equipos</button>
-        <select name="mostrarJugadores">
-            <option disabled selected>Escoge un equipo</option>
-            <?php foreach ($equipos as $equipo): ?>
-                <option value="<?= htmlspecialchars($equipo['nombre']) ?>" <?= $equipo['nombre'] === $equipoFiltro ? 'selected' : '' ?>> <?= htmlspecialchars($equipo['nombre']) ?> </option>
-            <?php endforeach; ?>
-        </select>
-        <button type="submit" name="btnMostrarJugadoresPorEquipo">Mostrar Jugadores</button>
-        <button type="submit" name="btnMostrarFormularioAltaBaja">Gestionar Jugadores</button>
+        <div class="menu">
+            <button type="submit" name="btnMostrarEquipos">Mostrar Equipos</button>
+            <select name="mostrarJugadores">
+                <option disabled selected>Escoge un equipo</option>
+                <?php foreach ($equipos as $equipo): ?>
+                    <option value="<?= htmlspecialchars($equipo['nombre']) ?>" <?= $equipo['nombre'] === $equipoFiltro ? 'selected' : '' ?>> <?= htmlspecialchars($equipo['nombre']) ?> </option>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit" name="btnMostrarJugadoresPorEquipo">Mostrar Jugadores</button>
+            <button type="submit" name="btnMostrarFormularioAltaBaja">Gestionar Jugadores</button>
+        </div>
     </form>
     <?php if (isset($_POST['btnMostrarEquipos'])): ?>
         <hr>
@@ -121,7 +127,6 @@ $jugadores = mostrarJugadores();
                 </form>
             <?php endif ?>
         <?php endif ?>
-
 </body>
 
 </html>
