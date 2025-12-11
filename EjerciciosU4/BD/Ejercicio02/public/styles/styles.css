@@ -1,0 +1,17 @@
+.tabla{
+    border: 1px solid #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.fila{
+    display: flex;
+    border: 1px solid #000;
+}
+.celda{
+    border: 1px solid #000;
+    flex: 1;
+}
+.cabecera{
+    background-color: rgb(101, 101, 255);
+    font-size: bold;
+    color: white;
+}
