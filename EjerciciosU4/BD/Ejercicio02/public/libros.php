@@ -19,7 +19,7 @@
         <label for="precio">Precio</label>
         <input type="number" name="precio" step="0.01">
         <label for="fechaAdq">Fecha de adquisición</label>
-        <input type="text" name="fechaAdq" placeholder="DD/MM/AAAA">
+        <input type="text" name="fechaAdq" placeholder="AAAA-MM-DD">
         <button type="submit" name="btnGuardar">Guardar</button>
     </form>
     <hr>

@@ -1,0 +1,20 @@
+{
+    "name": "nesto/ejercicio03",
+    "description": "\"Ejercicio 03\"",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "proscojonzio",
+            "email": "nestorserna100@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
