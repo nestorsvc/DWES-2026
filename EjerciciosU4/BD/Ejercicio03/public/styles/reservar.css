@@ -1,0 +1,76 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #e5e5e5;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+/* Tarjeta principal */
+section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+}
+
+/* Título */
+section h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #2563eb;
+}
+
+/* Texto */
+section p {
+    margin: 0 0 15px 0;
+    color: #444;
+}
+
+/* Labels y campos */
+section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+section input,
+section select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Botón */
+section button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+section button:hover {
+    background-color: #1e4ed8;
+}
+
+/* Enlace */
+section a {
+    display: inline-block;
+    margin-top: 15px;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section a:hover {
+    text-decoration: underline;
+}

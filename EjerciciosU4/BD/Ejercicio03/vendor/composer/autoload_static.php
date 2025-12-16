@@ -23,10 +23,6 @@ class ComposerStaticInitf24d6e12670e5c7ac9836f700e313b51
         array (
             'PhpOption\\' => 10,
         ),
-        'N' => 
-        array (
-            'Nesto\\Ejercicio03\\' => 18,
-        ),
         'G' => 
         array (
             'GrahamCampbell\\ResultType\\' => 26,
@@ -34,6 +30,10 @@ class ComposerStaticInitf24d6e12670e5c7ac9836f700e313b51
         'D' => 
         array (
             'Dotenv\\' => 7,
+        ),
+        'A' => 
+        array (
+            'App\\' => 4,
         ),
     );
 
@@ -54,10 +54,6 @@ class ComposerStaticInitf24d6e12670e5c7ac9836f700e313b51
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'Nesto\\Ejercicio03\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
         'GrahamCampbell\\ResultType\\' => 
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
@@ -65,6 +61,10 @@ class ComposerStaticInitf24d6e12670e5c7ac9836f700e313b51
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 

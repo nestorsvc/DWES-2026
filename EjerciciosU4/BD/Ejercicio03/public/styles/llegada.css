@@ -1,0 +1,57 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #e5e5e5;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+/* Tarjeta principal (section) */
+section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+}
+
+/* Título y texto */
+section p:first-child {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+section p {
+    margin: 0 0 15px 0;
+    color: #444;
+}
+
+/* Botones */
+section button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px; /* espacio entre botones si hay más de uno */
+}
+
+section button:hover {
+    background-color: #1e4ed8;
+}
+
+/* Enlace "volver al menú" */
+section a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section a:hover {
+    text-decoration: underline;
+}
