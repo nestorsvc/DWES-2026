@@ -48,3 +48,4 @@ switch ($page) {
     default:
         require __DIR__ . '/../app/Views/principal.php';
 }
+
