@@ -41,7 +41,8 @@ function mostrarPlazasLibres()
     return $plazas;
 }
 
-function mostrarPlazas(){
+function mostrarPlazas()
+{
     $pdo = ConexionBD::getConnection();
     $stmt = $pdo->query("SELECT numero, precio, reservada FROM plazas");
     $plazas = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -51,26 +52,37 @@ function mostrarPlazas(){
 function reservarPlaza(string $dni, string $nombre, int $numero_plaza)
 {
     $pdo = ConexionBD::getConnection();
+
     try {
         $pdo->beginTransaction();
 
-        // Insertamos los datos del pasajero en la tabla
-        $stmt = $pdo->prepare("INSERT INTO pasajeros (dni, nombre, sexo, numero_plaza) VALUES (?, ?, ?, ?)");
+        $stmt = $pdo->prepare(
+            "INSERT INTO pasajeros (dni, nombre, sexo, numero_plaza)
+             VALUES (?, ?, ?, ?)"
+        );
         $stmt->execute([$dni, $nombre, "-", $numero_plaza]);
 
-        // Reservamos la plaza 
-        $stmt = $pdo->prepare("UPDATE plazas SET reservada = 1 WHERE numero = ?");
+        $stmt = $pdo->prepare(
+            "UPDATE plazas SET reservada = 1 WHERE numero = ?"
+        );
         $stmt->execute([$numero_plaza]);
 
         $pdo->commit();
-        return "Plaza reservada correctamente";
+        return true;
     } catch (Exception $e) {
-        echo "Error " . $e->getMessage();
+        $pdo->rollBack();
+
+        if ($e->getCode() === '23000') {
+            return "dni_duplicado"; // código de error
+        }
+
         return false;
     }
 }
 
-function actualizarPrecios($nuevoPrecio, $numeroPlaza){
+
+function actualizarPrecios($nuevoPrecio, $numeroPlaza)
+{
     $pdo = ConexionBD::getConnection();
 
     $stmt = $pdo->prepare("UPDATE plazas SET precio = ? WHERE numero = ?");

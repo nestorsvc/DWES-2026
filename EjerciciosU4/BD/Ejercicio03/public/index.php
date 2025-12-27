@@ -18,8 +18,12 @@ switch ($page) {
 
             $resultado = reservarPlaza($dni, $nombre, $plaza);
 
-            if ($resultado !== false) {
-                echo '<p style="color:green">' . $resultado . '</p>';
+            if ($resultado === true) {
+                echo '<p style="color:green">Plaza reservada correctamente</p>';
+            } elseif ($resultado === "dni_duplicado") {
+                echo '<p style="color:red">Ya se ha hecho una reserva con este DNI</p>';
+            } else {
+                echo '<p style="color:red">Error al reservar la plaza</p>';
             }
         }
         require __DIR__ . '/../app/Views/reservar.php';
@@ -36,9 +40,9 @@ switch ($page) {
         break;
 
     case 'gestion':
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btnActualizarPrecios'])){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btnActualizarPrecios'])) {
             $precio = $_POST['precio'] ?? null;
-            foreach ($precio as $numeroPlaza => $nuevoPrecio){
+            foreach ($precio as $numeroPlaza => $nuevoPrecio) {
                 actualizarPrecios($nuevoPrecio, $numeroPlaza);
             }
         }
@@ -48,4 +52,3 @@ switch ($page) {
     default:
         require __DIR__ . '/../app/Views/principal.php';
 }
-
