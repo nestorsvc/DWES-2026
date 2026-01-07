@@ -14,6 +14,9 @@ $jugadoresFiltrados = mostrarJugadoresPorEquipo($equipoFiltro);
 $equipos = mostrarEquipos();
 $jugadores = mostrarJugadores();
 
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

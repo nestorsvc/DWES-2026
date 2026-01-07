@@ -1,0 +1,23 @@
+#titulo{
+    text-align: center;
+    justify-content: center;
+}
+
+.equipos{
+    border: 1px solid #000;
+}
+
+.fila{
+    display: flex;
+}
+
+.celda{
+    border: 1px solid #000;
+    flex: 1;
+}
+
+.cabecera{
+    background-color: blue;
+    color: white;
+    font-weight: bolder;
+}
