@@ -31,6 +31,7 @@ function mostrarDatosJugadores($equipo){
     $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $datos;
 }
+
 function mostrarNombresPorEquipo($equipo){
     $pdo = ConexionBD::getConnection();
     $stmt = $pdo->prepare("SELECT nombre FROM JUGADORES WHERE nombre_equipo = ?");
