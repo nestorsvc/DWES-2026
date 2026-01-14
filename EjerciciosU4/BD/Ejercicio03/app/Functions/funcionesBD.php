@@ -80,7 +80,6 @@ function reservarPlaza(string $dni, string $nombre, int $numero_plaza)
     }
 }
 
-
 function actualizarPrecios($nuevoPrecio, $numeroPlaza)
 {
     $pdo = ConexionBD::getConnection();
@@ -88,4 +87,41 @@ function actualizarPrecios($nuevoPrecio, $numeroPlaza)
     $stmt = $pdo->prepare("UPDATE plazas SET precio = ? WHERE numero = ?");
 
     $stmt->execute([$nuevoPrecio, $numeroPlaza]);
+}
+
+// Cuando se utilice hay que usar un bloque try - catch para recoger la excepcion en caso de que las contraseñas sean distintas
+function registrarUsuario($usuario, $password, $password2)
+{
+    if ($password !== $password2) {
+        return false;
+    }
+
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+
+    $pdo = ConexionBD::getConnection();
+    $stmt = $pdo->prepare("INSERT INTO usuarios (usuario, password) VALUES (?, ?)");
+    return $stmt->execute([$usuario, $hash]);
+}
+
+// Solamente devuelve true en caso de que encuentre el usuario con dicha contraseña, 
+// sino devolvera fasle
+function loguearUsuario($usuario, $password)
+{
+    $pdo = ConexionBD::getConnection();
+
+    $stmt = $pdo->prepare("SELECT password FROM usuarios WHERE usuario = ?");
+    $stmt->execute([$usuario]);
+
+    // Como solo esperamos un elemento, no usamos fetchAll, sino fetch a secas
+    $datos = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$datos) {
+        return false;
+    }
+
+    if (password_verify($password, $datos['password'] )) {
+        return true;
+    }
+
+    return false;
 }
