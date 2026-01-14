@@ -65,10 +65,14 @@ function reservarPlaza($nombre, $dni, $numero_plaza)
 }
 
 function actualizarPrecios($precios)
-{
-    $pdo = ConnectionPDODotenv::getConnection();
-    foreach ($precios as $numero => $precio) {
-        $stmt = $pdo->prepare("UPDATE plazas SET precio = ? WHERE numero = ?");
-        $stmt->execute([$precio, $numero]);
+{   
+    try {
+        $pdo = ConnectionPDODotenv::getConnection();
+        foreach ($precios as $numero => $precio) {
+            $stmt = $pdo->prepare("UPDATE plazas SET precio = ? WHERE numero = ?");
+            $stmt->execute([$precio, $numero]);
+        }
+    } catch(PDOException $e){
+        echo $e->getMessage();
     }
 }
