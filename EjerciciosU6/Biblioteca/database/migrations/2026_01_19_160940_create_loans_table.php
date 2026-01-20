@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreingId('user_id')
+            $table->foreignId('user_id')
             ->constrained('users')
             ->cascadeOnDelete();
 
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('status')->default('open');
             $table->unique(['book_id','returned_at'], 'loans_book_open_unique');
             $table->index(['user_id','status']);
-            
+
         });
     }
 

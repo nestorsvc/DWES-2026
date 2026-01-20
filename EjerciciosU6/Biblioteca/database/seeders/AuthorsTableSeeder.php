@@ -12,25 +12,35 @@ class AuthorsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('books')->insert(
+       DB::table('authors')->insert([
             [
-                [
-                    'title' => 'To Kill a Mockingbird',
-                    'published_year' => 1960,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                    'author_id' => 1,
-                    'isbn' => '978-0-06-112008-4',
-                ],
-                [
-                    'title' => 'To Kill a Mockingbird',
-                    'published_year' => 1960,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                    'author_id' => 1,
-                    'isbn' => '978-0-06-112008-4',
-                ]
-            ]
-        );
+                'name' => 'Gabriel García Márquez',
+                'country' => 'Colombia',
+                'birth_date' => '1927-03-06',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Miguel de Cervantes',
+                'country' => 'España',
+                'birth_date' => '1547-09-29',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Jane Austen',
+                'country' => 'Reino Unido',
+                'birth_date' => '1775-12-16',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Haruki Murakami',
+                'country' => 'Japón',
+                'birth_date' => '1949-01-12',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }
