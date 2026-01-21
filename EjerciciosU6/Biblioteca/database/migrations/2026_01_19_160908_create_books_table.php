@@ -20,8 +20,7 @@ return new class extends Migration
 
             $table->foreignId('author_id')
             ->constrained('authors')
-            ->cascadeOnUpdate()
-            ->restrictOnDelete();
+            ->onDelete('cascade');
 
             $table->index(['author_id','title']);
         });

@@ -34,7 +34,7 @@ class AuthorController extends Controller
             'country'=>['nullable','string','max:100'],
             'birth_date'=> ['nullable','string','date'],
         ]);
-        $author = Author::create($data);
+        Author::create($data);
 
         return redirect()->route('authors.index')->with('message','Autor Creado');
     }

@@ -10,7 +10,7 @@ class Author extends Model
     /** @use HasFactory<\Database\Factories\AuthorFactory> */
     use HasFactory;
 
-    protected $filable = ['name', 'country', 'birth_date'];
+    protected $fillable = ['name', 'country', 'birth_date'];
     protected $casts = ['birth_date' => 'date'];
 
     public function books()

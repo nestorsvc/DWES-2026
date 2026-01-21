@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Autores</title>
 </head>
+
 <body>
     <h1>Autores</h1>
 
@@ -18,16 +20,25 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($authors as $author)
+            @foreach ($authors as $author)
                 <tr>
                     <td>{{ $author->name }}</td>
                     <td>{{ $author->country }}</td>
                     <td>{{ $author->birth_date }}</td>
+                    <td>
+                        <form method="POST" action="{{ route('authors.destroy', $author) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
     {{ $authors->links() }}
+
 </body>
+
 </html>
