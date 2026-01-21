@@ -52,7 +52,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        return view("authors.edit", compact("author"));
     }
 
     /**

@@ -26,6 +26,7 @@
                     <td>{{ $author->country }}</td>
                     <td>{{ $author->birth_date }}</td>
                     <td>
+                        <a href="{{ route('authors.edit', $author) }}">Editar</a>
                         <form method="POST" action="{{ route('authors.destroy', $author) }}">
                             @csrf
                             @method('DELETE')
