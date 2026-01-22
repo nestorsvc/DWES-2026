@@ -27,6 +27,7 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -44,7 +45,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-
+        return view('authors.show',compact('author'));
     }
 
     /**

@@ -42,9 +42,7 @@ class BookController extends Controller
             'title' => ['required', 'string', 'min:2'],
             'isbn' => ['nullable', 'string', 'unique:books,isbn'],
             'author_id' => ['required', 'exists:authors,id'],
-            'published_at' => ['nullable', 'date'],
-            'pages' => ['nullable', 'integer', 'min:1'],
-            'price' => ['nullable', 'numeric'],
+            'published_year' => ['nullable', 'numeric'],
             'categories' => ['nullable', 'array'],
             'categories.*' => ['exists:categories,id'],
         ]);
@@ -91,9 +89,7 @@ class BookController extends Controller
             'title' => ['required', 'string', 'min:2'],
             'isbn' => ['nullable', 'string', 'unique:books,isbn,' . $book->id],
             'author_id' => ['required', 'exists:authors,id'],
-            'published_at' => ['nullable', 'date'],
-            'pages' => ['nullable', 'integer', 'min:1'],
-            'price' => ['nullable', 'numeric'],
+            'published_year' => ['nullable', 'numeric'],
             'categories' => ['nullable', 'array'],
             'categories.*' => ['exists:categories,id'],
         ]);
