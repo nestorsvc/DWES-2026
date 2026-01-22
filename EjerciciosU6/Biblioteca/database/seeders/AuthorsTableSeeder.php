@@ -20,6 +20,7 @@ class AuthorsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
             [
                 'name' => 'Miguel de Cervantes',
                 'country' => 'España',
@@ -27,6 +28,7 @@ class AuthorsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
             [
                 'name' => 'Jane Austen',
                 'country' => 'Reino Unido',
@@ -34,6 +36,7 @@ class AuthorsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
             [
                 'name' => 'Haruki Murakami',
                 'country' => 'Japón',
