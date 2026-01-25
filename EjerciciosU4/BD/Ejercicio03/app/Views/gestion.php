@@ -42,6 +42,7 @@ $plazas = mostrarPlazas();
         </form>
 
         <a href="index.php">Volver al menú</a>
+        <a href="logout.php">Cerrar sesión</a>
     </section>
 </body>
 

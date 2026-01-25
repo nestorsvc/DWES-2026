@@ -1,0 +1,20 @@
+{
+    "name": "nesto/ejercicio02",
+    "description": "\"Sesiones flash\"",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "proscojonzio",
+            "email": "nestorserna100@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

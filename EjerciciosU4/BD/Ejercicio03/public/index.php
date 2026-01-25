@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../app/Functions/funcionesBD.php';
 
 use function App\Functions\confirmarLlegada;
@@ -66,8 +67,8 @@ switch ($page) {
             } else {
                 echo '<p style="color:red">Las contraseñas deben ser iguales</p>';
             }
-            require __DIR__ . '/../app/Views/register.php';
         }
+        require __DIR__ . '/../app/Views/register.php';
         break;
 
     case "login":
@@ -77,13 +78,15 @@ switch ($page) {
             $password = $_POST['password'] ?? null;
 
             if (loguearUsuario($usuario, $password) === true) {
+                $_SESSION['usuario'] = $usuario;
+                $_SESSION['logueado'] = true;
                 header("Location: index.php?page=principal");
                 exit;
             } else {
                 echo '<p style="color:red">Campos incorrectos</p>';
             }
-            require __DIR__ . '/../app/Views/login.php';
         }
+        require __DIR__ . '/../app/Views/login.php';
         break;
     default:
         require __DIR__ . '/../app/Views/principal.php';

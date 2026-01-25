@@ -1,5 +1,31 @@
-<?php 
+<?php
+if (!isset($_SESSION['logueado'])) {
+    header("Location: index.php?page=login");
+    exit;
+}
+/* 🍪 Gestión de la cookie de última visita */
+$nombreCookie = "ultima_visita_reserva";
+
+if (!isset($_COOKIE[$nombreCookie])) {
+    // Primera visita
+    $mensajeVisita = "Bienvenido por primera vez a la página de reservas.";
+    
+} else {
+    // Visitas posteriores
+    $fechaAnterior = $_COOKIE[$nombreCookie];
+    $mensajeVisita = "Tu última visita fue el: " . date("d/m/Y H:i:s", $fechaAnterior);
+}
+echo $mensajeVisita;
+
+/* Guardamos / actualizamos la cookie (30 días) */
+setcookie(
+    $nombreCookie,
+    time(),
+    time() + (30 * 24 * 60 * 60) // 30 días
+);
+
 use function App\Functions\mostrarPlazasLibres;
+
 $plazas = mostrarPlazasLibres() ?? null;
 ?>
 <!DOCTYPE html>
@@ -27,18 +53,19 @@ $plazas = mostrarPlazasLibres() ?? null;
             <label for="plaza">Plazas disponibles:</label>
             <select id="plaza" name="plaza" required>
                 <option value="" disabled selected>-- Selecciona una plaza --</option>
-                <?php foreach($plazas as $plaza):?>
-                    <option value="<?= htmlspecialchars($plaza['numero'])?>" >
+                <?php foreach ($plazas as $plaza): ?>
+                    <option value="<?= htmlspecialchars($plaza['numero']) ?>">
                         <p>Numero <?= htmlspecialchars($plaza['numero']) ?></p>
                         <p>Precio <?= htmlspecialchars($plaza['precio']) ?> €</p>
                     </option>
-                    <?php endforeach ?>
+                <?php endforeach ?>
             </select>
 
             <button type="submit" name="btnReservar">Reservar</button>
         </form>
 
         <a href="index.php">Volver al menú</a>
+        <a href="logout.php">Cerrar sesión</a>
     </section>
 </body>
 

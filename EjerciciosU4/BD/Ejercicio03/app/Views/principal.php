@@ -11,6 +11,14 @@
 
 <body>
     <div class="container">
+        
+        <a href="index.php?page=login">
+            <button type="button" name="btnLogin">Login</button>
+        </a>
+        <a href="index.php?page=register">
+            <button type="button" name="btnRegister">Register</button>
+        </a>
+    
         <h3 id="marco">FB</h3>
         <div class="titulo">
             <h3>Funicular Bulnes</h3>
