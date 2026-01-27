@@ -1,4 +1,6 @@
 <?php
+use Again\Clases\Autenticarse;
+
 require_once '../app/Funciones/helper.php';
 iniciar_sesion();
 
@@ -21,7 +23,8 @@ $usuario = $_SESSION['usuario'] ?? "";
 </head>
 <body>
     <h1>Te has conectado</h1>
-    <p>Hola, tu id de usuario es <?= $usuario['email'] ?></p>
+    <p>Hola, tu id de usuario es <?= $usuario['id'] ?></p>
+    <a href="index.php?accion=desconectarse">Desconectarse</a>
 </body>
 
 </html>

@@ -1,8 +1,11 @@
 <?php
+
 namespace Again\Clases;
+
 use Again\Clases\ConexionBD;
 use PDOException;
 use PDO;
+
 require_once __DIR__ . '/../Funciones/helper.php';
 class Autenticarse
 {
@@ -24,12 +27,10 @@ class Autenticarse
   password VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 
-            Autenticarse::CrearDatosUsuario("educantabria@example.es", "password");
-
+            // Autenticarse::CrearDatosUsuario("nestor@gmail.com", "password");
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
-
     }
 
     private static function CrearDatosUsuario($usuario, $password)
@@ -51,7 +52,6 @@ class Autenticarse
 
     public static function autenticar()
     {
-
         if (!esPost()) {
             flash("error", "Método HTTP no permitido");
             redireccionar("index.php?accion=paginaLogin");
@@ -63,21 +63,30 @@ class Autenticarse
             return;
         }
 
-        $usuario = $_POST['usuario'] ?? "";
+        $usuarioPOST = $_POST['usuario'] ?? "";
         $password = $_POST['password'] ?? "";
 
         $pdo = ConexionBD::getConnection();
         try {
-            $stmt = $pdo->prepare("SELECT password FROM usuarios WHERE user = ?");
-            $stmt->execute([$usuario]);
+            $stmt = $pdo->prepare("SELECT id, user, password FROM usuarios WHERE user = ?");
+            $stmt->execute([$usuarioPOST]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!$usuario) {
-                flash("error", "Credenciales incorrectas");
-                $correo = $_POST['usuario'];
+                flash("error", "El usuario no se encuentra en la base de datos");
+                $_SESSION['email'] = $usuarioPOST;;
+                redireccionar("index.php?accion=paginaLogin");
                 return;
             }
 
+            if (!password_verify($password, $usuario['password'])) {
+                flash("error", "Credenciales incorrectas");
+                $_SESSION['email'] = $_POST['usuario'];
+                redireccionar("index.php?accion=paginaLogin");
+                return;
+            }
+
+            $_SESSION['usuario'] = $usuario;
             redireccionar("index.php?accion=paginaConectado");
             return;
         } catch (PDOException $e) {
@@ -91,10 +100,8 @@ class Autenticarse
             flash("error", "No tienes acceso a esta página");
             redireccionar("index.php?accion=paginaLogin");
             return;
-        } else {
-            redireccionar("index.php?accion=paginaConectado.php");
-            return;
         }
+        require __DIR__ . "/../../public/PaginaConectado.php";
     }
 
     public static function desconectarse()
@@ -110,7 +117,7 @@ class Autenticarse
             redireccionar("index.php?accion=paginaConectado");
             return;
         }
-        redireccionar("index.php?accion=paginaLogin");
+        require __DIR__ . '/../../public/PaginaLogin.php';
     }
 
     public static function runAccion()
@@ -132,6 +139,4 @@ class Autenticarse
                 break;
         }
     }
-            
-
 }
