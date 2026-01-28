@@ -1,3 +1,12 @@
+<?php 
+session_start();
+
+$usuario = [];
+
+if(isset($_SESSION['usuario'])){
+    $usuario = $_SESSION['usuario'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +16,7 @@
     <title>Menu</title>
 </head>
 <body>
+    <p><?= $usuario === [] ? "" : "Hola " . $usuario['usuario'] . "!" ?></p>
     <div class="card">
     <div class="card-header">
         Funicular Bulnes
@@ -28,6 +38,21 @@
             <h3>Gestión de plazas</h3>
             <p>Ver y actualizar precios de las plazas.</p>
             <a href="gestion.php">Gestionar</a>
+        </div>
+        <div class="card-section">
+            <h3>Register</h3>
+            <p>Registrarse.</p>
+            <a href="register.php">Register</a>
+        </div>
+        <div class="card-section">
+            <h3>Login</h3>
+            <p>Login.</p>
+            <a href="login.php">Login</a>
+        </div>
+        <div class="card-section">
+            <h3>Logout</h3>
+            <p>Logout.</p>
+            <a href="logout.php">Logout</a>
         </div>
     </div>
 

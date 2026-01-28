@@ -5,7 +5,7 @@ namespace App\FuncionesEBD;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use App\ClasesEBD\ConexionEBD;
-use Dba\Connection;
+use Error;
 use Exception;
 use PDOException;
 use PDO;
@@ -76,25 +76,67 @@ function actualizarPreciosEBD($precios)
     }
 }
 
-function registrarUsuarios($usuario, $contrasenia, $contrasenia2)
+function registrarUsuario($usuario, $password, $password2)
 {
-    var_dump(ConexionEBD::getConnection());
-    $pdo = ConexionEBD::getConnection();
-    
-    
-    try {
 
-        if($contrasenia !== $contrasenia2 ){
-            throw new Exception("Las contraseñas deben de ser iguales");
+    $pdo = ConexionEBD::getConnection();
+
+    try {
+        if ($password !== $password2) {
+            throw new Exception("Las contraseñas deben ser iguales");
         }
 
-        $hash = password_hash($contrasenia, PASSWORD_BCRYPT);
+        $hash = password_hash($password, PASSWORD_BCRYPT);
         $stmt = $pdo->prepare("INSERT INTO usuarios (usuario, password) VALUES (?, ?)");
-
         $stmt->execute([$usuario, $hash]);
-        return true;
+
+        if ($stmt->rowCount() !== 0) {
+            echo "Usuario registrado correctamente";
+        } else {
+            echo "No se pudo registrar el usuario";
+        }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
-        return false;
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
     }
+}
+function loginUsuario($usuario, $password){
+
+    $pdo = ConexionEBD::getConnection();
+
+    try{
+        $stmt = $pdo->prepare("SELECT id, usuario, password FROM usuarios WHERE usuario = ?");
+        $stmt->execute([$usuario]);
+
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        if(!$usuario){
+            throw new Exception("Usuario no encontrado");
+        }
+        
+        if(!password_verify($password, $usuario['password'])){
+            throw new Exception("Contraseña incorrecta");
+        }
+        session_start();
+        $_SESSION['usuario'] = $usuario;
+        header("Location: ../public/index.php");
+        exit;
+    } catch(PDOException $e){
+        echo "Error: " . $e->getMessage();
+    } catch(Exception $e){
+        echo "Errror: " . $e->getMessage();
+    }
+
+}
+
+function logout(){
+    // Asegurarse de que la sesión esté activa
+    if(session_status() === PHP_SESSION_NONE){
+        session_start();
+    }
+    
+    unset($_SESSION['usuario']);
+    session_destroy();
+    header("Location: index.php");
+    exit;
 }

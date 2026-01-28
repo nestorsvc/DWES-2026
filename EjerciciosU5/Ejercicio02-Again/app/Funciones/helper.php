@@ -1,6 +1,6 @@
 <?php
 
-function flash(string $clave, string $mensaje = null)
+function flash($clave, $mensaje = null)
 {
 
     if ($mensaje !== null) {
@@ -14,6 +14,8 @@ function flash(string $clave, string $mensaje = null)
         return $msg;
     }
 }
+
+
 function iniciar_sesion()
 {
     if (session_status() === PHP_SESSION_NONE) {
@@ -21,22 +23,23 @@ function iniciar_sesion()
     }
 }
 
-function estaLogueado(){
-    if(isset($_SESSION['usuario'])){
+function estaLogueado()
+{
+    if (isset($_SESSION['usuario'])) {
         return true;
     }
     return false;
 }
 
-function redireccionar($url){
+function redireccionar($url)
+{
     header("Location: $url");
 }
 
-function esPost(){
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+function esPost()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return true;
     }
     return false;
 }
-
-

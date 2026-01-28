@@ -1,5 +1,5 @@
 <?php
-namespace App\ClassesEBD;
+namespace App\ClasesEBD;
 require_once __DIR__ . '/../../vendor/autoload.php';
 use PDO;
 use PDOException;

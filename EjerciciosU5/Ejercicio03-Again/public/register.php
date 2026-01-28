@@ -1,18 +1,16 @@
 <?php
-include '../app/FuncionesEBD/funcionesEBD.php';
+use function App\FuncionesEBD\registrarUsuario;
+require_once __DIR__ . '/../app/FuncionesEBD/funcionesEBD.php';
 
-use function App\FuncionesEBD\registrarUsuarios;
 
-if (isset($_POST['btnRegistrarse'])){
-    $password = $_POST['contrasenia'] ?? "";
-    $password2 = $_POST['contrasenia'] ?? "";
-    $usuario = $_POST['usuario'] ?? "";
+$usuario = $_POST['usuario'] ?? "";
+$password = $_POST['password'] ?? "";
+$password2 = $_POST['password2'] ?? "";
 
-    if(registrarUsuarios($usuario, $password, $password2)){
-        echo "Usuario $usuario registrado correctamente";
-    }
-
+if(isset($_POST['btnRegistrarse'])){
+    echo registrarUsuario($usuario, $password, $password2);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,20 +18,19 @@ if (isset($_POST['btnRegistrarse'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Registrer</title>
 </head>
 
 <body>
-    <h1>Resgistrate</h1>
     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
         <label for="usuario">Usuario</label>
         <input type="text" name="usuario">
 
-        <label for="contrasenia">Contrasenia</label>
-        <input type="password" name="contrasenia">
+        <label for="password">Password</label>
+        <input type="password" name="password">
 
-        <label for="contrasenia2">Repetir cotraseña</label>
-        <input type="password" name="contrasenia2">
+        <label for="password2">Repetir password</label>
+        <input type="password" name="password2">
 
         <button type="submit" name="btnRegistrarse">Registrarse</button>
     </form>

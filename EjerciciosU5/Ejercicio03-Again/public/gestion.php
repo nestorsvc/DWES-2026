@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 use function App\FuncionesEBD\actualizarPreciosEBD;
 use function App\FuncionesEBD\obtenerNumeroReservasPrecio;
 
@@ -11,6 +11,13 @@ if(isset($_POST['btnActualizar'])){
     actualizarPreciosEBD($precios);
 }
 
+if (!isset($_SESSION['usuario'])){
+    echo "No tienes acceso a esta pagina";
+    header("Refresh: 3; url=index.php");
+}else{
+    $usuario = $_SESSION['usuario'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +27,7 @@ if(isset($_POST['btnActualizar'])){
     <title>Gestion</title>
 </head>
 <body>
+    <p>Hola <?= $usuario['usuario'] ?>!</p>
     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF'])?>" method="post">
         <table border="1">
             <thead>
