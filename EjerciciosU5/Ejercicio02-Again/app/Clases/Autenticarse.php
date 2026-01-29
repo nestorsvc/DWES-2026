@@ -63,6 +63,7 @@ class Autenticarse
             return;
         }
 
+        
         $usuarioPOST = $_POST['usuario'] ?? "";
         $password = $_POST['password'] ?? "";
 
@@ -85,7 +86,7 @@ class Autenticarse
                 redireccionar("index.php?accion=paginaLogin");
                 return;
             }
-
+            
             $_SESSION['usuario'] = $usuario;
             redireccionar("index.php?accion=paginaConectado");
             return;

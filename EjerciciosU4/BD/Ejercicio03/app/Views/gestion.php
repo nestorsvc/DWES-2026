@@ -38,6 +38,9 @@ $plazas = mostrarPlazas();
                 </tbody>
             </table>
 
+
+            
+
             <button type="submit" name="btnActualizarPrecios">Actualizar Precios</button>
         </form>
 

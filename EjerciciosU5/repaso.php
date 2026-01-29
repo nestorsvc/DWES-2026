@@ -8,12 +8,14 @@ function flash($clave, $mensaje = null){
         return;
     }
      // ahora accedemos a ese mensaje, para ello primero comprobamos si existe la clave del mensaje
-     if($_SESSION['flash'][$clave]){
+     if(isset($_SESSION['flash'][$clave])){
         // lo guardamos en un mensaje
         $msg = $_SESSION['flash'][$clave];//=> accedemos al valor del mensaje
+        unset($_SESSION['flash'][$clave]);
         return $msg;
      }
 }
+
 // Sesiones
 // funcion generica para iniciar sesion 
 function iniciar_sesion(){
@@ -21,6 +23,7 @@ function iniciar_sesion(){
         session_start();
     }
 }
+
 
 
 

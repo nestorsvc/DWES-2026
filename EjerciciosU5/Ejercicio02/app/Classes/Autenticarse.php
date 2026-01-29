@@ -77,7 +77,6 @@ class Autenticarse
         Autenticarse::login();
     }
 
-
     public static function login()
     {
 
@@ -106,6 +105,7 @@ class Autenticarse
             exit;
         }
     }
+
     public static function paginaConectado()
     {
         if (!estaLogueado()) {
