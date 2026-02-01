@@ -48,7 +48,7 @@ class AuthorController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error de validación',
-                'errors' => $e->getMessage(), // Retorna los errores específicos de validación
+                'error' => $e->getMessage(), // Retorna los errores específicos de validación
             ], 422); // HTTP Unprocessable Entity
 
         } catch (Exception $e) {
