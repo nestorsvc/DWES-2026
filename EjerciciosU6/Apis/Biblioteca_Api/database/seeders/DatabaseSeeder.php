@@ -15,9 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(AuthorsTableSeeder::class);
-        $this->call(BooksTableSeeder::class);
-        $this->call(CategoriesTableSeeder::class);
+        User::factory()->create([
+            'name' => 'Usuario de Prueba',
+            'email' => 'dwes@educantabria.es',
+            'password' => bcrypt('laravel'),
+        ]);
+
+        // $this->call(AuthorsTableSeeder::class);
+        // $this->call(BooksTableSeeder::class);
+        // $this->call(CategoriesTableSeeder::class);
 
     }
 }
