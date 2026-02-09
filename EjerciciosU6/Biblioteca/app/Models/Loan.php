@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\LoanStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,21 +21,24 @@ class Loan extends Model
     protected $casts = [
         'loaned_at' => 'datetime',
         'returned_at' => 'datetime',
+         'status' => LoanStatus::class,
     ];
 
     /**
      * Un préstamo pertenece a un libro
      */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function book()
     {
         return $this->belongsTo(Book::class);
     }
 
-    /**
-     * Un préstamo pertenece a un usuario
-     */
-    public function user()
+    public function librarian()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'librarian_id');
     }
 }

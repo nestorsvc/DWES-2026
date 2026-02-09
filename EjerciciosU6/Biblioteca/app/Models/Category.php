@@ -18,9 +18,8 @@ class Category extends Model
     /**
      * Una categoría puede pertenecer a muchos libros
      */
-    public function books()
+     public function books()
     {
-        return $this->belongsToMany(Book::class);
+        return $this->belongsToMany(Book::class, 'book_category');
     }
-
 }

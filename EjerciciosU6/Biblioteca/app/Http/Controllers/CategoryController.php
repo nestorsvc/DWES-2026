@@ -32,7 +32,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-         $data = $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', 'min:2', 'unique:categories,name'],
         ]);
 
@@ -47,45 +47,47 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show($id)
     {
+        $category = Category::with(['books.author'])->findOrFail($id);
         return view('categories.show', compact('category'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-         return view('categories.edit', compact('category'));
+        $category = Category::findOrFail($id);
+        return view("categories.edit", compact("category"));
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-         $data = $request->validate([
-            'name' => ['required', 'string', 'min:2', 'unique:categories,name,' . $category->id],
+        $category = Category::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
         ]);
 
-        $data['slug'] = \Str::slug($data['name']);
+        $category->update($validated);
 
-        $category->update($data);
-
-        return redirect()->route('categories.index')->with('message', 'Categoría actualizada');
+        return redirect()->route('categories.index')
+            ->with('success', 'Categoría actualizada correctamente.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        // Antes de borrar, eliminamos las relaciones con libros
-        $category->books()->detach();
-
+        $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('categories.index')->with('message', 'Categoría eliminada');
+        return redirect()->route('categories.index')
+            ->with('success', 'Categoría eliminada correctamente.');
     }
 }

@@ -13,7 +13,7 @@ class AuthorController extends Controller
     public function index()
     {
         $authors = Author::query()->orderBy('name')->paginate(10);
-        return view('authors.index',compact('authors'));
+        return view('authors.index', compact('authors'));
     }
 
     /**
@@ -31,53 +31,61 @@ class AuthorController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name'=> ['required','string','min:2'],
-            'country'=>['nullable','string','max:100'],
-            'birth_date'=> ['nullable','string','date'],
+            'name' => ['required', 'string', 'min:2'],
+            'country' => ['nullable', 'string', 'max:100'],
+            'birth_date' => ['nullable', 'string', 'date'],
         ]);
         Author::create($data);
 
-        return redirect()->route('authors.index')->with('message','Autor Creado');
+        return redirect()->route('authors.index')->with('message', 'Autor Creado');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Author $author)
+    public function show($id)
     {
-        return view('authors.show',compact('author'));
+        $author = Author::with(['books.categories'])->findOrFail($id);
+        return view('authors.show', compact('author'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Author $author)
+    public function edit($id)
     {
+        $author = Author::findOrFail($id);
         return view("authors.edit", compact("author"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'name'=> ['required','string','min:2'],
-            'country'=>['nullable','string','max:100'],
-            'birth_date'=> ['nullable','date'],
+        $author = Author::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'birth_date' => 'nullable|date',
         ]);
 
-        $author->update($data);
-        return redirect()->route('authors.index')->with('message','Autor actualizado');
+        $author->update($validated);
+
+        return redirect()->route('authors.index')
+            ->with('success', 'Autor actualizado correctamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Author $author)
+    public function destroy($id)
     {
+        $author = Author::findOrFail($id);
         $author->delete();
-        return redirect()->route('authors.index')->with('message','Autor eliminado');
 
+        return redirect()->route('authors.index')
+            ->with('success', 'Autor eliminado correctamente.');
     }
 }

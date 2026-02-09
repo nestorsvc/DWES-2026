@@ -13,25 +13,18 @@ return new class extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('book_id')->constrained()->onDelete('cascade');
+            $table->foreignId('librarian_id')->nullable()->constrained('users');
+
+            // Añadir el status
+            $table->string('status', 20)->default('pending');
+
+            $table->date('loan_date')->nullable();
+            $table->date('due_date')->nullable();
+            $table->date('return_date')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
-
-            $table->foreignId('user_id')
-            ->constrained('users')
-            ->cascadeOnDelete();
-
-            $table->foreignId('book_id')
-            ->constrained('books')
-            ->restrictOnDelete();
-
-            $table->date("loaned_at");
-            $table->date("due_at");
-
-            $table->date("returned_at")->nullable();
-
-            $table->string('status')->default('open');
-            $table->unique(['book_id','returned_at'], 'loans_book_open_unique');
-            $table->index(['user_id','status']);
-
         });
     }
 

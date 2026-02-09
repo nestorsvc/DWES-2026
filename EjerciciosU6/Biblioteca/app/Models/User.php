@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -29,6 +31,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'is_active'
     ];
 
     /**
@@ -62,6 +66,30 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class,
+            'is_active' => 'boolean',
         ];
+    }
+
+
+    // Funciones para comprobar los roles
+    public function isLibrarian()
+    {
+        return $this->role === UserRole::LIBRARIAN;
+    }
+
+    public function isSocio()
+    {
+        return $this->role === UserRole::USER;
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === UserRole::ADMIN;
+    }
+
+    public function hasRole(string $role)
+    {
+        return $this->role === UserRole::from($role);
     }
 }

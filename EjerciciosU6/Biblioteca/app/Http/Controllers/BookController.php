@@ -14,11 +14,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::query()
-            ->with(['author', 'categories'])
-            ->orderBy('title')
-            ->paginate(10);
-
+        $books = Book::with(['author', 'categories'])->get();
         return view('books.index', compact('books'));
     }
 
@@ -38,44 +34,49 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title' => ['required', 'string', 'min:2'],
-            'isbn' => ['nullable', 'string', 'unique:books,isbn'],
-            'author_id' => ['required', 'exists:authors,id'],
-            'published_year' => ['nullable', 'numeric'],
-            'categories' => ['nullable', 'array'],
-            'categories.*' => ['exists:categories,id'],
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'author_id' => 'required|exists:authors,id',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
+            'isbn' => 'required|string|unique:books,isbn',
+            'published_year' => 'nullable|integer|min:1000|max:' . date('Y'),
+            'description' => 'nullable|string',
+            'is_available' => 'boolean',
         ]);
 
-        $book = Book::create($data);
+        $book = Book::create([
+            'title' => $validated['title'],
+            'author_id' => $validated['author_id'],
+            'isbn' => $validated['isbn'],
+            'published_year' => $validated['published_year'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'is_available' => $request->has('is_available'),
+        ]);
 
-        // Sincroniza categorías en la tabla pivot
-        if (!empty($data['categories'])) {
-            $book->categories()->sync($data['categories']);
-        }
+        // Adjuntar categorías a la tabla pivote
+        $book->categories()->attach($validated['categories']);
 
-        return redirect()->route('books.index')->with('message', 'Libro creado');
+        return redirect()->route('books.index')
+            ->with('success', 'Libro creado correctamente.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show($id)
     {
-        $book->load(['author', 'categories']);
-
+        $book = Book::with(['author', 'categories', 'loans.user'])->findOrFail($id);
         return view('books.show', compact('book'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book)
+    public function edit($id)
     {
+        $book = Book::with(['categories'])->findOrFail($id);
         $authors = Author::orderBy('name')->get();
         $categories = Category::orderBy('name')->get();
-
-        $book->load('categories');
 
         return view('books.edit', compact('book', 'authors', 'categories'));
     }
@@ -83,23 +84,35 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'title' => ['required', 'string', 'min:2'],
-            'isbn' => ['nullable', 'string', 'unique:books,isbn,' . $book->id],
-            'author_id' => ['required', 'exists:authors,id'],
-            'published_year' => ['nullable', 'numeric'],
-            'categories' => ['nullable', 'array'],
-            'categories.*' => ['exists:categories,id'],
+        $book = Book::findOrFail($id);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'author_id' => 'required|exists:authors,id',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
+            'isbn' => 'required|string|unique:books,isbn,' . $id,
+            'published_year' => 'nullable|integer|min:1000|max:' . date('Y'),
+            'description' => 'nullable|string',
+            'is_available' => 'boolean',
         ]);
 
-        $book->update($data);
+        $book->update([
+            'title' => $validated['title'],
+            'author_id' => $validated['author_id'],
+            'isbn' => $validated['isbn'],
+            'published_year' => $validated['published_year'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'is_available' => $request->has('is_available'),
+        ]);
 
-        // Sincroniza categorías en la tabla pivot
-        $book->categories()->sync($data['categories'] ?? []);
+        // Sincronizar categorías
+        $book->categories()->sync($validated['categories']);
 
-        return redirect()->route('books.index')->with('message', 'Libro actualizado');
+        return redirect()->route('books.index')
+            ->with('success', 'Libro actualizado correctamente.');
     }
 
     /**

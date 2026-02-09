@@ -16,15 +16,19 @@ class Book extends Model
     {
         return $this->belongsTo(Author::class);
     }
-    public function categories(){
-        return $this->belongsToMany(Category::class)->withTimestamps();
+
+     public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'book_category');
     }
 
-    public function loans(){
+    public function loans()
+    {
         return $this->hasMany(Loan::class);
     }
 
-    public function isAvailable(){
+    public function isAvailable()
+    {
         return !$this->loans()->whereNull('returned_at')->exists();
     }
 }
